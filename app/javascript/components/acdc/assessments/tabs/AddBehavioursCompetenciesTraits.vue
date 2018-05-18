@@ -30,7 +30,6 @@
     </div>
     
     <div class="edit_section">
-      <!-- TODO need to Update if condition -->
       <div v-if="isAssessmentClassCompetency">
         <Traits v-bind:tabData='tabData.raw_data'></Traits>
       </div> 
@@ -100,6 +99,7 @@
     for(var k=0; k<competenciesAndTrait.length; k++) {
       if (isAssessmentClassCompetency) {
         isValid = competenciesAndTrait[k].name == null
+          || competenciesAndTrait[k].name == 'Select Trait'
           || competenciesAndTrait[k].name.length == 0 
           || competenciesAndTrait[k].weight.length == 0
         if (isValid) {
@@ -110,6 +110,7 @@
         for(var i=0; i<competenciesAndTrait[k].selectedFactors.length; i++) {
           isTraitValid = competenciesAndTrait[k].selectedFactors[i].weight.length == 0
             || competenciesAndTrait[k].selectedFactors[i].name == null
+            || competenciesAndTrait[k].selectedFactors[i].name == 'Select Trait'
             || competenciesAndTrait[k].selectedFactors[i].name.length == 0
           if (isTraitValid) {
             break;

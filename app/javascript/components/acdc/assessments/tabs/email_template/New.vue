@@ -1,8 +1,8 @@
 <template>
-  <div class="modal scrollable modalOpen">
+  <div class="modal scrollable hide" id="modal">
     <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase bold">
-        <span>Edit Template</span>
+        <span>Edit Template ff</span>
         <div class="spacer"></div>
         <div @click.prevent="model.showModel=false" class="close">&times;</div>
       </div>
@@ -39,7 +39,7 @@
             <hr/>
 
             <div class="text_editor">
-              <vue-editor class="large" v-model="model.create_template.body"></vue-editor>
+              <vue-editor class="large" :editorToolbar="customToolbar" v-model="model.create_template.body"></vue-editor>
             </div>
 
           </div>
@@ -94,6 +94,19 @@
   import { VueEditor } from 'vue2-editor'
   export default {
     props: ['currentTemplates', "tabData", "templateName", 'model', 'createTemplateName', 'templateVariables'],
+    data() {
+      return {
+        customToolbar: [
+          [{ 'header': [false, 1, 2, 3, 4, 5, 6, ] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
+          ['blockquote', 'code-block'],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'indent': '-1'}, { 'indent': '+1' }],
+          [{ 'color': [] }, { 'background': [] }],
+        ]
+      }
+    },
     components: {
       VueEditor
     },
@@ -111,6 +124,12 @@
         let editor = document.querySelector('.ql-editor')
         editor.innerHTML = [editor.innerHTML.slice(0, editor.innerHTML.length - 4), "<p><$" + id +  "$></p>", editor.innerHTML.slice(editor.innerHTML.length - 4)].join('');
       }
-    }
+    },
+    mounted: function (){
+      setTimeout(function() {
+        document.getElementById("modal").classList.remove("hide");
+        document.getElementById("modal").classList.add("modalOpen");
+      }, 0);
+    }    
   }
 </script>

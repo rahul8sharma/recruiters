@@ -1,5 +1,5 @@
 <template>
-  <div class="modal scrollable modalOpen">
+  <div class="modal scrollable hide" id="modal">
     <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase">
         <span>Create / Edit Custom Form</span>
@@ -98,7 +98,7 @@
                     <label class="toggle">
                       <input v-model="definedField.active" class="toggle-checkbox" type="checkbox">
                       <div class="toggle-switch"></div>
-                      <span class="toggle-label">Active</span>
+                      <span class="toggle-label">{{definedField.active ? 'Active' : 'InActive'}}</span>
                     </label>
                   </div> 
                   <div class="large-2"></div>
@@ -244,6 +244,12 @@
           return newValue
         }
       }
+    },
+    mounted: function (){
+      setTimeout(function() {
+        document.getElementById("modal").classList.remove("hide");
+        document.getElementById("modal").classList.add("modalOpen");
+      }, 0);
     }
   }
 

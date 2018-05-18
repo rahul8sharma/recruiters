@@ -1,4 +1,4 @@
-<template>
+Select Trait<template>
   <div>
     <em class="fs-12 black-6 large-12 show">(Type Competencies name to add them in this Assessment, You can arrange the order of the competencies in next step)</em>
     <div class="divider-1"></div>
@@ -50,7 +50,7 @@
       </a>
       <em class="fs-12 black-6">(Competency Ranges, Competency Scores, Consistency Report)</em>
 
-      <div class="more_actions_container" v-bind:class="{'open':moreActions}">
+      <div class="more_actions_container"  v-bind:class="[moreActions ? 'show' : 'hide']" >
         <div class="divider-1"></div>
         <div class="clearfix">
           <div class="large-10 columns">
@@ -95,7 +95,7 @@
           order: this.tabData.competencies.length,
           selectedFactors: [{
             id: '',
-            name: '',
+            name: 'Select Trait',
             from_norm_bucket: {value: '', text: ''},
             to_norm_bucket: {value: '', text: ''},
             weight: 1.0
@@ -137,7 +137,6 @@
       background: url('~assets/images/ic-dropdown-warning.svg') no-repeat right center 
   .more_actions_container
     overflow: hidden
-    display: none
     padding-top: 15px
     &.open
       display: block

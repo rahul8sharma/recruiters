@@ -96,8 +96,10 @@
     watch: {
       "model.item": function() {
         if(this.model.item.value.length !== 0) {
-          this.tabData[this.templateName] = this.currentTemplates[this.model.item.value].id
-          this.model.selectTemplated = this.currentTemplates[this.model.item.value]  
+          const index = indexWhere(this.currentTemplates, item => item.id === this.model.item.value.toString())
+
+          this.tabData[this.templateName] = this.model.item
+          this.model.selectTemplated = this.currentTemplates[index]
         }
       },
       "formatTemplates": function() {

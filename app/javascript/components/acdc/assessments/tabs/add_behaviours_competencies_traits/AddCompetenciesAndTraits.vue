@@ -12,22 +12,12 @@
       <div class="clr"></div>
 
       <ul>
-        <li v-for="(trait, traitIndex) in localCompetency.selectedFactors" >
+        <li v-for="(trait, traitIndex) in localCompetency.selectedFactors" v-if="items[competencyIndex] != null" >
           <div class="fs-16 large-1 columns black-9 line-height-4">{{ traitIndex + 1 }}.</div>
 
           <div class="form-group large-8 columns pr-20">
-            <v-autocomplete 
-              :items="items[competencyIndex].competencySuggestion[traitIndex].suggestion" 
-              :min-len='0'
-              v-model="trait.name" 
-              :get-label="getLabel"
-              :component-item='template' 
-              @item-selected="itemSelected" 
-              placeholder="Type Trait name"
-              @update-items="update"
-              @focus="setCurrentIndex(traitIndex, competencyIndex)"
-              autofocus>
-            </v-autocomplete>
+             <select2 :options="items[competencyIndex].factorNames[traitIndex]" v-model="trait.name" :competencyData="{tabData: tabData, competencyIndex: competencyIndex, traitIndex: traitIndex, factors: factors, items: items, options: options}" :initializeData="initializeData" :id="'trait_id_' + (competencyIndex + '' + traitIndex)">
+            </select2>
             <label>Trait name</label>
           </div>
           <div class="select-box large-7 columns pr-20">
@@ -91,23 +81,17 @@
 </template>
 
 <script>
-  import Autocomplete from 'v-autocomplete'
-  import ItemTemplate from './ItemTemplate.vue'
   import { ModelSelect } from 'vue-search-select'
+  import select2 from './select2.vue'
 
   export default {
     props: ["competencies", 'tabData'],
     data () {
       return {
         items: [{
-          competencySuggestion: [{
-            suggestion: [],
-          }]
+          competencySuggestion: [],
+          factorNames: []
         }],
-        template: ItemTemplate,
-        currentTraitIndex:'',
-        currentCompetencyIndex:'',
-        currentCompetenciesIndex: '',
         options: [
           {value: 1, text: 'Low'},
           {value: 2, text: 'Below Average'},
@@ -118,64 +102,82 @@
         ],
         initializeData: false,
         factorNames: [],
-        factor: []
+        factors: [],
+        isremoveTraitEvent: -1,
+        removeTraitValue: '',
+        traitIndex: ''
       }
     },
     components: {
-      'v-autocomplete': Autocomplete,
-      ModelSelect
+      ModelSelect, select2
     },
     methods: {
       addTrait(index) {
        this.tabData.competencies[index].selectedFactors.push({
           factor_id: '',
-          name: '',
+          name: 'Select Trait',
           from_norm_bucket: {value: '', text: ''},
           to_norm_bucket: {value: '', text: ''},
           weight: 1.0
         })
-       this.items[index].competencySuggestion.push({suggestion: []})
-      }, 
-      itemSelected (factorName) {
-        if(!this.initializeData) {
-          const competency = this.tabData.competencies[this.currentCompetencyIndex]
-          const index = indexWhere(this.factors, item => item.name === factorName)
-          const factor = this.factors[index]
+       this.items[index].competencySuggestion.push("Select Trait")
+       
+       if(this.factorNames.indexOf('Select Trait') > -1) {
+       this.items[index].factorNames[this.tabData.competencies[index].selectedFactors.length - 1] = this.factorNames.slice()
+       } else {
+        this.items[index].factorNames[this.tabData.competencies[index].selectedFactors.length - 1] = this.factorNames.slice()
+        this.items[index].factorNames[this.tabData.competencies[index].selectedFactors.length - 1].unshift("Select Trait")
+       }
 
-          competency.selectedFactors[this.currentTraitIndex].factor_id = factor.id
-          competency.selectedFactors[this.currentTraitIndex].name = factor.name
-          competency.selectedFactors[this.currentTraitIndex].to_norm_bucket = this.options[(factor.to_norm_bucket_id - 1)]
-          competency.selectedFactors[this.currentTraitIndex].from_norm_bucket = this.options[(factor.from_norm_bucket_id - 1)]
+       let traitIndex = this.tabData.competencies[index].selectedFactors.length - 1
+       let traits = this.tabData.competencies[index].selectedFactors.map(function(elem){ return elem.name;}).filter((v, i, a) => a.indexOf(v) === i)
 
-          competency.factor_ids[this.currentTraitIndex] = factor.id
-        }  
-      },
-      getLabel (item) {
-        if (item) {
-          return item
+        for (var i = 0; i < traits.length; i++) {
+          if(traits[i].length != 0 && traits[i] != 'Select Trait') {
+            var j = this.items[index].factorNames[traitIndex].indexOf(traits[i]);
+            if (j > -1) {
+               this.items[index].factorNames[traitIndex].splice(j, 1);
+            }
+          }
         }
-        return ''
-      },
-      update (text) {
-        this.initializeData = false
-
-        this.items[this.currentCompetencyIndex].competencySuggestion[this.currentTraitIndex].suggestion = this.factorNames.filter((item) => {
-          return (new RegExp(text.toLowerCase())).test(item.toLowerCase())
-        })
-      },
-      setCurrentIndex(traitIndex, competencyIndex) {
-        this.currentTraitIndex = traitIndex
-        this.currentCompetencyIndex = competencyIndex
       },
       removeCompetency(traitIndex, competencyIndex) {
-        if((this.tabData.competencies[competencyIndex].selectedFactors.length -1) != 0) {
-          this.tabData.competencies[competencyIndex].selectedFactors.splice(traitIndex, 1)
-          this.tabData.competencies[competencyIndex].factor_ids.splice(traitIndex, 1)  
-        }
+        this.removeTraitValue = this.tabData.competencies[competencyIndex].selectedFactors[traitIndex].name
+
+        this.traitIndex = traitIndex
+        this.tabData.competencies[competencyIndex].selectedFactors.splice(traitIndex, 1)
+        this.tabData.competencies[competencyIndex].factor_ids.splice(traitIndex, 1)
+        this.items[competencyIndex].competencySuggestion.splice(traitIndex, 1)
+        this.items[competencyIndex].factorNames.splice(traitIndex, 1)
+        this.isremoveTraitEvent = competencyIndex
       }
     },
+    updated: function() {
+      if(this.isremoveTraitEvent != -1) {
+        let traitLength = this.tabData.competencies[this.isremoveTraitEvent].selectedFactors.length
+
+        for (let j=0; j<traitLength; j++){
+          if(this.removeTraitValue  != 'Select Trait') {
+            this.items[this.isremoveTraitEvent].factorNames[j].push(this.removeTraitValue)
+
+            let currentTritId = 'trait_id_' + this.isremoveTraitEvent + '' + j
+            let currentTraitSelect = document.getElementById(currentTritId)
+            let option = ''
+            option = document.createElement("option")
+            option.text = this.removeTraitValue
+            currentTraitSelect.add(option);
+          }
+        }
+
+        for (let j=0; j<traitLength; j++){
+          var string_copy = (' ' + this.items[this.isremoveTraitEvent].competencySuggestion[j]).slice(1);
+          this.tabData.competencies[this.isremoveTraitEvent].selectedFactors[j].name = string_copy
+        }
+      }
+      this.isremoveTraitEvent = -1
+      
+    },
     created: function() {
-      this.initializeData = true
       this.get.traits({
         company_id: 2,
         functional_areas_id: 1,
@@ -188,13 +190,33 @@
       .then(data => {
         this.factors = data.factors
         this.factorNames = data.factor_names
+        for(var competencyIndex = 0; competencyIndex < this.tabData.competencies.length; competencyIndex ++) {
+          if (competencyIndex != 0) {
+            this.items.push({competencySuggestion: [], factorNames: []})
+          }
+          for(var factor in this.tabData.competencies[competencyIndex].selectedFactors) {
+            if(this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name != ""){
+              this.items[competencyIndex].competencySuggestion.push(this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name)
+            } else {
+              this.items[competencyIndex].competencySuggestion.push('Select Trait')
+              this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name = 'Select Trait'
+              this.factorNames.unshift("Select Trait")
+            }
+            this.initializeData = true
+            this.items[competencyIndex].factorNames[parseInt(factor)] = this.factorNames.slice()
+          }
+          let selectedTrait = this.items[competencyIndex].competencySuggestion.filter(function(v) { return v != 'Select Trait' })
+          for(var factor in this.tabData.competencies[competencyIndex].selectedFactors) {
+            let traitName = this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name
+            this.items[competencyIndex].factorNames[parseInt(factor)] = this.items[competencyIndex].factorNames[parseInt(factor)].filter(function (item) {
+                return selectedTrait.indexOf(item) === -1
+            });
+            if (traitName != 'Select Trait') {
+              this.items[competencyIndex].factorNames[parseInt(factor)].push(traitName)
+            }
+          }
+        }
       });
-      for(var competencyIndex = 0; competencyIndex < this.tabData.competencies.length; competencyIndex ++) {
-        this.items.push({competencySuggestion: []})
-        for(var factor in this.tabData.competencies[competencyIndex].selectedFactors) {
-          this.items[competencyIndex].competencySuggestion.push({suggestion: []})
-        }  
-      }
     }
   }
 
@@ -202,7 +224,6 @@
     const item = array.find(conditionFn)
     return array.indexOf(item)
   }
-  
 </script>
 
 <style lang="sass" scoped>
@@ -219,7 +240,6 @@
       background: url('~assets/images/ic-dropdown-warning.svg') no-repeat right center 
   .more_actions_container
     overflow: hidden
-    display: none
     padding-top: 15px
     &.open
       display: block
