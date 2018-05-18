@@ -176,7 +176,7 @@ export default {
         })
     },
     setAllAssessment ({commit, getters, state}, payload) {
-      Vue.http.get("/companies/" + payload.companyId + "/acdc/get_all_assessments")
+      Vue.http.get("/companies/" + payload.companyId + "/acdc/get_all_assessments/?page=" + payload.page)
         .then(function (response) {
           return response.json()
         })
