@@ -69,6 +69,15 @@
           acdc_assessment: {select_questions: this.tabData.raw_data}
         })
       }
+    },
+    created: function() {
+      this.get.get_objective_and_subject_questions({company_id: 2})
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          console.log(data)
+        })
     }
   }
 </script>

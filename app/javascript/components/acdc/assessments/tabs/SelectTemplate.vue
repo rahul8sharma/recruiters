@@ -96,7 +96,7 @@
         this.createTemplateName = createTemplateName
         this.show = true
         for(var index = 0; index < this.currentTemplates.length; index ++) {
-          this.formatTemplates.push({value: this.currentTemplates[index].id, text: this.currentTemplates[index].name})
+          this.formatTemplates.push({value: index, text: this.currentTemplates[index].name})
         }
       },
       saveAndNext() {
