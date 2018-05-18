@@ -95,6 +95,7 @@
           config: selectedReportConfig,
           viewMode: viewMode
         })
+        document.getElementById("reportConfigPreview").classList.remove("hide");
       },
       setHtmlRawData () {
         let cloneConfig = JSON.parse(JSON.stringify(this.htmlData));
@@ -125,7 +126,6 @@
       '$store.state.ReportConfigurationStore.reportPreview' (newCount, oldCount) {
         let reportPreviewConfig = this.$store.getters.reportPreview
         if (reportPreviewConfig.length != 0) {
-          document.getElementById('reportConfigPreview').classList.remove("hide");
           document.getElementById('reportConfigIframe').contentWindow.document.body.innerHTML = reportPreviewConfig
         }
       },
