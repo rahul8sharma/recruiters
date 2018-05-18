@@ -28,20 +28,20 @@
     <div class="listing">
       <div class="headings uppercase black-9 fs-14 bold">
         <div class="container flex-box clearfix pt-16 pb-16">
-          <div class="large-2 iconic">
+          <div class="large-2 iconic" @click="sortAssessment(assessmentSort.id, 'id')">
             AID
-            <span class="icon_up hide">&#9650;</span>
-            <span class="icon_down">&#9660;</span>
+            <span class="icon_up hide" v-if="assessmentSort.id">&#9650;</span>
+            <span class="icon_down" v-else="assessmentSort.id">&#9660;</span>
           </div>
-          <div class="large-10 iconic">
+          <div class="large-10 iconic" @click="sortAssessment(assessmentSort.name, 'name')">
             Assessment Title
-            <span class="icon_up hide">&#9650;</span>
-            <span class="icon_down">&#9660;</span>
+            <span class="icon_up hide" v-if="assessmentSort.name">&#9650;</span>
+            <span class="icon_down" v-else="assessmentSort.name">&#9660;</span>
           </div>
-          <div class="large-4 iconic">
+          <div class="large-4 iconic" @click="sortAssessment(assessmentSort.created_at, 'created_at')">
             Created on 
-            <span class="icon_up hide">&#9650;</span>
-            <span class="icon_down">&#9660;</span>
+            <span class="icon_up hide" v-if="assessmentSort.created_at">&#9650;</span>
+            <span class="icon_down" v-else="assessmentSort.created_at">&#9660;</span>
           </div>
           <div class="large-4">Status</div>
           <div class="large-4">Actions</div>
@@ -101,7 +101,13 @@
     </div>
     <div class="pagination">
       <div class="container">
-        1 2 3
+        <paginate
+          :page-count="totalPage"
+          :click-handler="getAssessmentByPageNumber"
+          :prev-text="'Prev'"
+          :next-text="'Next'"
+          :container-class="'className'">
+        </paginate>
       </div>
     </div>
   </div>
@@ -112,9 +118,10 @@
   import Loader from 'components/shared/loader.vue';
   import assessmentHelper from 'helpers/assessment.js'
   import assessmentUrlHelper from 'helpers/assessmentUrl.js'
+  import Paginate from 'vuejs-paginate'
 
   export default {
-    components: { CreateAssessment, Loader },
+    components: { CreateAssessment, Loader, Paginate },
     data () {
       return {
         modal: {
@@ -126,7 +133,13 @@
           tools: [],
           product: ''
         },
-        allAssessment: {}
+        allAssessment: {},
+        totalPage: 2,
+        assessmentSort: {
+          id: false,
+          name: false,
+          created_at: false
+        }
       }
     },
     methods: {
@@ -230,6 +243,33 @@
       },
       getAssessmentEditUrl(id) {
         return assessmentUrlHelper.getAssessmentEditUrl(this.$store.state.AcdcStore.companyId, id)
+      },
+      getAssessmentByPage(pageNumber) {
+        this.$store.dispatch('setAllAssessment', {
+          companyId: this.$store.state.AcdcStore.companyId,
+          page: pageNumber
+        })
+      },
+      getAssessmentByPageNumber(pageNumber) {
+        this.getAssessmentByPage(pageNumber)
+      },
+      sortAssessment(isAscendingOrder, assessmentColumn) {
+        function compare(a, b) {
+          let firstAssessmentColumn = a.attributes[assessmentColumn]
+          let secondAssessmentColumn = b.attributes[assessmentColumn]
+          if ((typeof firstAssessmentColumn) == 'string') {
+            firstAssessmentColumn = firstAssessmentColumn.toLowerCase()
+            secondAssessmentColumn = secondAssessmentColumn.toLowerCase()
+          }
+          if (firstAssessmentColumn < secondAssessmentColumn)
+            return isAscendingOrder ? 1 : -1
+          if (firstAssessmentColumn > secondAssessmentColumn)
+            return isAscendingOrder ? -1 : 1
+          return 0;
+        }
+        this.allAssessment.sort(compare)
+        this.assessmentSort = { id: false, name: false, created_at: false}
+        this.assessmentSort[assessmentColumn] = !isAscendingOrder
       }
     },
     computed: {
@@ -249,9 +289,7 @@
       .then(data => {
         this.products = data
       })
-      this.$store.dispatch('setAllAssessment', {
-        companyId: this.$store.state.AcdcStore.companyId
-      })
+      this.getAssessmentByPage(1)
     },
     watch: {
       '$store.state.AcdcStore.allAssessment' (newCount, oldCount) {
