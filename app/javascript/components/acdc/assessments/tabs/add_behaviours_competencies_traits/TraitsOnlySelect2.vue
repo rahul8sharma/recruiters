@@ -3,7 +3,6 @@
       <slot></slot>
   </select>
 </template>
-<style type="text/css" src="select2/dist/css/select2.min.css"></style>
 <script>
   import select2 from 'select2'
   import $ from "jquery";

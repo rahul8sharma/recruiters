@@ -10,16 +10,18 @@
     <ul>
       <li v-for="(trait, traitIndex) in tabData.job_assessment_factor_norms_attributes" >
         <div class="fs-16 large-1 columns black-9 line-height-4">{{ traitIndex + 1 }}.</div>
-
-        <div class="form-group large-8 columns pr-20">
-          <select2 :options="items[traitIndex]" v-model="trait.name" :id="'trait_id_' +  traitIndex"
-           :traitData="{tabData: tabData.job_assessment_factor_norms_attributes, traitIndex: traitIndex, items: items, factors: factors, options: options, selectedtraits:selectedtraits}"
-           :initializeData="initializeData">
-            </select2>
-          <label>Trait name</label>
-        </div>
         <div class="select-box large-7 columns pr-20">
-          <div class="form-gro  up">
+          <div class="form-group">
+            <select2 :options="items[traitIndex]" v-model="trait.name" :id="'trait_id_' +  traitIndex"
+             :traitData="{tabData: tabData.job_assessment_factor_norms_attributes, traitIndex: traitIndex, items: items, factors: factors, options: options, selectedtraits:selectedtraits}"
+             :initializeData="initializeData">
+              </select2>
+            <label>Trait name</label>
+          </div>
+        </div>
+        
+        <div class="select-box large-7 columns pr-20">
+          <div class="form-group">
             <model-select :options="options"
               v-model="trait.from_norm_bucket"
               placeholder="Range from">

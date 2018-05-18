@@ -2,7 +2,16 @@
   @include flex
   -webkit-flex-flow: column
   flex-flow: column
-  .ui
+  .select2-container
+    &:hover, &:focus
+      border-color: $color-warning
+      box-shadow: none
+      padding: 0
+      &+label
+        color: $color-warning
+        transform: scale(1)
+        opacity: 1
+  .ui, .select2-container
     order: 2
     &.label > .close.icon, &.label > .delete.icon
       &:before
@@ -40,11 +49,13 @@
     transform-origin: left
 .select-box
   ui fluid multiple search selectiondropdown
-  .ui
+  .ui, .select2-container 
     background: transparent
     &.multiple.search.dropdown > input.search, &.search.dropdown > .text,  &.dropdown:not(.button) > .default.text, &.default.dropdown:not(.button) > .text
       margin: 0
       padding: rem-calc(10 0)
+      padding-right: rem-calc(30)
+      word-wrap: break-word
     &.dropdown
       border-color: $color-warning
       box-shadow: none

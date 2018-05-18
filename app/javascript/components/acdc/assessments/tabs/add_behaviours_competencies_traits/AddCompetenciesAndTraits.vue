@@ -5,6 +5,7 @@
         {{ competencyIndex + 1 }}.  {{localCompetency.name}}
       </div>
       <div class="divider-2"></div>
+      <div class="large-1 columns pr-20"></div>
       <div class="fs-12 large-8 columns color-warning pr-20">Type Trait name</div>
       <div class="fs-12 large-7 columns color-warning pr-20">Range from</div>
       <div class="fs-12 large-7 columns color-warning pr-20">Range to</div>
@@ -14,11 +15,13 @@
       <ul>
         <li v-for="(trait, traitIndex) in localCompetency.selectedFactors" v-if="items[competencyIndex] != null" >
           <div class="fs-16 large-1 columns black-9 line-height-4">{{ traitIndex + 1 }}.</div>
-
-          <div class="form-group large-8 columns pr-20">
-             <select2 :options="items[competencyIndex].factorNames[traitIndex]" v-model="trait.name" :competencyData="{tabData: tabData, competencyIndex: competencyIndex, traitIndex: traitIndex, factors: factors, items: items, options: options}" :initializeData="initializeData" :id="'trait_id_' + (competencyIndex + '' + traitIndex)">
-            </select2>
-            <label>Trait name</label>
+          <div class="select-box large-8 columns pr-20">
+            <div class="form-group">
+               <select2 :options="items[competencyIndex].factorNames[traitIndex]" v-model="trait.name" :competencyData="{tabData: tabData, competencyIndex: competencyIndex, traitIndex: traitIndex, factors: factors, items: items, options: options}" :initializeData="initializeData" :id="'trait_id_' + (competencyIndex + '' + traitIndex)">
+              </select2>
+              <label>Trait name</label>
+            </div>
+            
           </div>
           <div class="select-box large-7 columns pr-20">
             <div class="form-group">
@@ -39,12 +42,12 @@
             </div>
           </div>
           
-          <div class="form-group large-5 columns pr-20">
+          <div class="form-group large-3 columns pr-20">
             <input v-model="trait.weight" type="text" placeholder="Weightage" />
             <label>Weightage</label>
           </div>
 
-           <button v-if="((tabData.competencies[competencyIndex].selectedFactors.length -1) != 0)" @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-default btn-link uppercase fs-30 black-10 large-3 columns">&times;</button>
+           <button v-if="((tabData.competencies[competencyIndex].selectedFactors.length -1) != 0)" @click="removeCompetency(traitIndex, competencyIndex)" class="button btn-default btn-link uppercase fs-30 black-10 large-2 columns">&times;</button>
 
           <div class="clr"></div>
           
