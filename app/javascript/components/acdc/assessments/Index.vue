@@ -68,7 +68,7 @@
                         <div class="large-20 columns">
                           <span>ToDo Name of product</span>
                           <br/>
-                          <em class="fs-12">{{getToolsName(assessment.attributes.tools)}}</em>
+                          <em class="fs-12">{{splitToolsName(assessment.attributes.tools)}}</em>
                         </div>
                       </div>
                       
@@ -91,7 +91,7 @@
               <div class="large-4">{{assessment.attributes.created_at.split('T')[0]}}</div>
               <div class="large-4">{{assessment.attributes.status}}</div>
               <div class="large-4">
-                <a v-bind:href="getAssessmentUrl(assessment.attributes.id)" class="bold">Edit Assessment</a>
+                <a v-bind:href="getAssessmentEditUrl(assessment.attributes.id)" class="bold">Edit Assessment</a>
               </div>
             </div>
           </li>
@@ -110,6 +110,8 @@
 <script>
   import CreateAssessment from 'components/acdc/assessments/New.vue';
   import Loader from 'components/shared/loader.vue';
+  import assessmentHelper from 'helpers/assessment.js'
+  import assessmentUrlHelper from 'helpers/assessmentUrl.js'
 
   export default {
     components: { CreateAssessment, Loader },
@@ -217,42 +219,17 @@
           }
         })
       },
-      getToolsName(tools) {
-        let toolsName = "NON-VAC("
-        for(var toolIndex=0; toolIndex<tools.length; toolIndex++) {
-          let lower = tools[toolIndex].split('_').join(' ')
-          toolsName = toolsName + lower.charAt(0).toUpperCase() + lower.substr(1)
-          if((tools.length - 1) != toolIndex) {
-            toolsName = toolsName + ', '
-          }
-        }
-        
-        return toolsName + ")"
+      splitToolsName(tools) {
+        return assessmentHelper.splitToolsName(tools)
       },
       getlanguages(tool_configurations) {
-        let languages = ""
-        if (tool_configurations.length != 0 && tool_configurations[0].languages.length != 0) {
-          let toolLanguages = tool_configurations[0].languages
-          for(var toolIndex=0; toolIndex<toolLanguages.length; toolIndex++) {
-            languages = languages + toolLanguages[toolIndex].text
-            if((toolLanguages.length - 1) != toolIndex) {
-              languages = languages + ', '
-            }
-          }
-        }
-        
-        return languages
+        return assessmentHelper.getlanguages(tool_configurations[0])
       },
       getPurpose(tool_configurations) {
-        let purpose = ""
-        if (tool_configurations.length != 0 && tool_configurations[0].candidate_stage.length != 0) {
-          purpose = tool_configurations[0].candidate_stage.replace(/\b\w/g, l => l.toUpperCase())
-        }
-        
-        return purpose
+        return assessmentHelper.getPurpose(tool_configurations[0])
       },
-      getAssessmentUrl(id) {
-        return "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc/" + id + "/edit"
+      getAssessmentEditUrl(id) {
+        return assessmentUrlHelper.getAssessmentEditUrl(this.$store.state.AcdcStore.companyId, id)
       }
     },
     computed: {
