@@ -188,22 +188,18 @@ class Acdc::AssessmentsController < ApplicationController
     render json: {factors: factor_data, factor_names: factor_names}, status: :ok
   end
 
-  def get_objective_and_subject_questions
+  def get_section_with_objective
     sections = Vger::Resources::Section.where(query_options: {active: true, company_id: @company.id}).all.to_a
-    objective_subjectives = sections.map do |section|
-      section_with_objective_subjective = section.attributes
-      section_with_objective_subjective[:objective_items] = Vger::Resources::ObjectiveItem.active.where(
-                                  query_options: { section_id: section_with_objective_subjective["id"]
+    section_with_objectives = sections.map do |section|
+      section_with_objective = section.attributes
+      section_with_objective[:objective_items] = Vger::Resources::ObjectiveItem.active.where(
+                                  query_options: { section_id: section_with_objective["id"]
                                   }, :include => [ :options ]).all.to_a.collect { |objective| objective.attributes }
 
-      section_with_objective_subjective[:subjective_item] = Vger::Resources::SubjectiveItem.active.where(
-                                  query_options: {
-                                    section_id: section_with_objective_subjective["id"]
-                                  }).all.to_a.collect { |subjective| subjective.attributes }
-      section_with_objective_subjective
+      section_with_objective
     end
 
-    render json: {objective_subjectives: objective_subjectives}, status: :ok
+    render json: {section_with_objectives: section_with_objectives}, status: :ok
   end
 
 
