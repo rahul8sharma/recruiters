@@ -11,7 +11,7 @@
         <div class="divider-1"></div>
 
         <label class="custom-checkbox">
-          <input  v-model="objectiveQuestion.is_question_uploaded" type="checkbox"/>
+          <input v-model="objectiveQuestion.is_question_uploaded" @click="uploadAccountQuestion" type="checkbox"/>
           <div class="label-text fs-12">I already have the questions uploaded in the account</div>
         </label>
       </div>
@@ -97,6 +97,18 @@
           url: this.drive_url
         }).then(() => {
         })
+      },
+      uploadAccountQuestion() {
+        this.objectiveQuestion.sections = []
+        if (!this.objectiveQuestion.is_question_uploaded) {
+          this.get.get_section_with_objective({
+            company_id: this.$store.state.AcdcStore.companyId
+          }).then(response => {
+            return response.json()
+          }).then(data => {
+            this.objectiveQuestion.sections = extractObjectiveQuestions(data.section_with_objectives)
+          })
+        }
       }
     },
     watch: {
@@ -114,6 +126,34 @@
   function isGoogleDriveUrlValid(url) {
     var googleDriveRegex = /^https?:\/\/([^\/]+)\/([^?]*\/)?([^\/?]+)/;
     return !googleDriveRegex.exec(url);
+  }
+
+  function extractObjectiveQuestions(section_with_objectives) {
+    var sections = []
+    for(var sectionIndex=0; sectionIndex<section_with_objectives.length; sectionIndex++) {
+      var questions = section_with_objectives[sectionIndex].objective_items
+      var data = []
+      for(var questionIndex=0; questionIndex<questions.length; questionIndex++) {
+        var options = questions[questionIndex].options
+        var option = []
+        for(var optionIndex=0; optionIndex<options.length; optionIndex++) {
+          option.push({
+            body: options[optionIndex].attributes.body,
+            score: options[optionIndex].attributes.score
+          })
+        }
+        data.push({
+          question_body: questions[questionIndex].body,
+          options: option
+        })
+      }
+      sections.push({
+        section_name: section_with_objectives[sectionIndex].name,
+        data: data
+      })
+    }
+
+    return sections
   }
 </script>
 
