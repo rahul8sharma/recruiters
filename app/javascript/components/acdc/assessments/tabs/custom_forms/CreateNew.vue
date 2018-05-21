@@ -256,7 +256,8 @@
   function isValidForm(definedForm) {
     let isValid = true
     for(var k=0; k<definedForm.defined_fields_attributes.length; k++) {
-      isValid = definedForm.defined_fields_attributes[k].field_type.length == 0
+      isValid = definedForm.defined_fields_attributes[k].field_type.length == 0 
+        || definedForm.defined_fields_attributes[k].identifier == 0
       if (isValid) {
         break;
       }

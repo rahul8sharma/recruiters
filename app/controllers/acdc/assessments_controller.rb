@@ -133,11 +133,11 @@ class Acdc::AssessmentsController < ApplicationController
   end
 
   def get_templates_by_ids
-    template_data = {get_invitation_templates: {}, reminder_templates: {}, completion_notification_templates: {}}
+    template_data = {invitation_templates: {}, reminder_templates: {}, completion_notification_templates: {}}
 
-    template_data[:get_invitation_templates] = get_invitation_templates[0].attributes if !params[:invitation_template_id].blank?
-    template_data[:reminder_templates] = reminder_templates[0].attributes if !params[:reminder_template_id].blank?
-    template_data[:completion_notification_templates] = completion_notification_templates[0].attributes if !params[:completion_notification_template_id].blank?
+    template_data[:invitation_templates] = get_invitation_templates[0].attributes if params[:invitation_template_id].present?
+    template_data[:reminder_templates] = get_reminder_templates[0].attributes if params[:reminder_template_id].present?
+    template_data[:completion_notification_templates] = get_completion_notification_templates[0].attributes if params[:completion_notification_template_id].present?
 
     render json: template_data, status: :ok
   end

@@ -207,8 +207,9 @@
       tabData: {
          handler(val){
            if(Object.keys(this.tabData.raw_data).length !== 0) {
-            this.isSaveNextButtonDisabled = this.tabData.raw_data.defined_form_id.value.length == 0
-            && Object.keys(this.tabData.raw_data.defined_form).length == 0
+            let definedFormId = this.tabData.raw_data.defined_form_id.value
+            this.isSaveNextButtonDisabled = (definedFormId == null || definedFormId.length == 0)
+            && (this.tabData.raw_data.defined_form == null || Object.keys(this.tabData.raw_data.defined_form).length == 0)
           }
          },
          deep: true

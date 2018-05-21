@@ -47,6 +47,7 @@
   import Competencies from 'components/acdc/assessments/tabs/add_behaviours_competencies_traits/AddCompetencies.vue'
   import CompetencyTraits from 'components/acdc/assessments/tabs/add_behaviours_competencies_traits/AddCompetenciesAndTraits.vue'
   import Traits from 'components/acdc/assessments/tabs/add_behaviours_competencies_traits/AddTraits.vue'
+  import assessmentHelper from 'helpers/assessment.js'
 
   export default {
     props: ['tabData'],
@@ -86,7 +87,7 @@
     computed: {
       isAssessmentClassCompetency () {
         if(Object.keys(this.$store.state.AcdcStore.assessmentRawData).length !== 0) {
-          return isAssessmentClassCompetency(this.$store.state.AcdcStore.assessmentRawData)
+          return assessmentHelper.isAssessmentClassCompetency(this.$store.state.AcdcStore.assessmentRawData)
         } else {
           return false
         }
@@ -125,9 +126,5 @@
       }
     }
     return isValid
-  }
-
-  function isAssessmentClassCompetency(data) {
-    return data.tool_configuaration[0].assessment_type != 'competency'
   }
 </script>
