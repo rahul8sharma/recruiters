@@ -12,7 +12,7 @@
       <div class="info_tooltip">
         <div class="tooltip_text">
           <div class="text_container">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+            This step allows you to set the template of the emails which will go out to candidates as invitation, reminder and post assessment completion.
           </div>
         </div>
       </div>

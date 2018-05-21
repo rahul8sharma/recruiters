@@ -14,8 +14,11 @@
 
       <div class="info_tooltip">
         <div class="tooltip_text">
-          <div class="text_container">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+          <div v-if="isAssessmentClassCompetency" class="text_container">
+            This step allows you to add traits to the assessment. Please refer to the mapping given by Consulting team while performing this step.
+          </div>
+          <div v-else class="text_container">
+            This step allows you to add competencies and traits to the assessment. Please refer to the mapping given by Consulting team while performing this step.
           </div>
         </div>
       </div>

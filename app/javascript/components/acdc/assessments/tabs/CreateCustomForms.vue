@@ -8,7 +8,7 @@
       <div class="info_tooltip">
         <div class="tooltip_text">
           <div class="text_container">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+            This step allows you to select a custom form which will appear at the start of the assessment. You can add/remove fields from existing form or add new form altogether.
           </div>
         </div>
       </div>

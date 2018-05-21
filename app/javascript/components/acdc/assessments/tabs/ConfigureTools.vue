@@ -8,7 +8,7 @@
       <div class="info_tooltip">
         <div class="tooltip_text">
           <div class="text_container">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+            This step lists the tools which will be used in the assessment. Select the configuration of the tools depending on your need.
           </div>
         </div>
       </div>

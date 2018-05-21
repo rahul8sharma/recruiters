@@ -11,7 +11,7 @@
       <div class="info_tooltip">
         <div class="tooltip_text">
           <div class="text_container">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+            System has already preselected the configuration based on the selections you have made. Depending on the requirement, you can enable/disable sections here.
           </div>
         </div>
       </div>

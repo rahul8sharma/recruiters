@@ -8,7 +8,7 @@
       <div class="info_tooltip">
         <div class="tooltip_text">
           <div class="text_container">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos necessitatibus, facilis dolorum, impedit fugit voluptatibus nemo unde ut a dolore vero quo sint perspiciatis. Exercitationem saepe cum a vitae! Eligendi.
+            This page shows all the details of the assessment. Review these details as per the client request. Once reviewed, generate a sample report and send it for approval. Please note that you cannot edit the assessment once you send it for review .
           </div>
         </div>
       </div>
