@@ -39,11 +39,11 @@
           v-bind:createCustomForms="assessmentData.create_custom_forms"
           v-bind:isSendForReview="isSendForReview"
         >
-        </CustomForms>         
+        </CustomForms>
       </div>
       <div class="review_section">
         <BehaviourCompetencyTraits
-          v-bind:addBehavioursCompetenciesTraits="assessmentData.add_behaviours_competencies_traits"
+          v-bind:assessmentData="assessmentData"
           v-bind:isSendForReview="isSendForReview"
         >
         </BehaviourCompetencyTraits>         
@@ -64,7 +64,7 @@
       </div>
       <div class="review_section">
         <EmailTemplates
-          v-bind:selectTemplates="assessmentData.select_templates"
+          v-bind:assessmentData="assessmentData"
           v-bind:isSendForReview="isSendForReview"
         >
         </EmailTemplates>         
@@ -129,18 +129,6 @@
       assessmentData: function () {
         return this.$store.state.AcdcStore.assessmentRawData
       }
-    },
-    created: function() {
-       this.get.get_templates_by_ids({ company_id: 2, 
-                  invitation_template_id: 20,
-                  reminder_template_id: '',
-                  completion_notification_template_id: ''})
-        .then(response => {
-          return response.json()
-        })
-        .then(data => {
-          console.log(data)
-        })
     }
   }
 </script>

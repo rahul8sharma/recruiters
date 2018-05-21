@@ -70,4 +70,12 @@ function insertAtCursor(myField, myValue) {
   }
 };
 
-export default { splitToolsName, getlanguages, getPurpose, insertAtCursor }
+// Check assessment class is competency or trait
+function isAssessmentClassCompetency(data) {
+  return data.tool_configuaration[0].assessment_type != 'competency'
+}
+
+export default { 
+  splitToolsName, getlanguages, getPurpose, insertAtCursor, 
+  isAssessmentClassCompetency
+}
