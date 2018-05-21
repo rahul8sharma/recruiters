@@ -129,6 +129,18 @@
       assessmentData: function () {
         return this.$store.state.AcdcStore.assessmentRawData
       }
+    },
+    created: function() {
+       this.get.get_templates_by_ids({ company_id: 2, 
+                  invitation_template_id: 20,
+                  reminder_template_id: '',
+                  completion_notification_template_id: ''})
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          console.log(data)
+        })
     }
   }
 </script>
