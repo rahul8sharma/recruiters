@@ -46,6 +46,7 @@
   import mini_hive_with_pearson_ravens from 'components/acdc/assessments/tabs/configure_tools/Mini-HiVEwithPearsonRavens.vue';
   import mini_hive_with_wg from 'components/acdc/assessments/tabs/configure_tools/Mini-HIVEwithWG.vue';
   import psychometry from 'components/acdc/assessments/tabs/configure_tools/Psychometry.vue';
+  import validationHelper from 'helpers/validation.js'
  
   export default {
     props: ['tabData'],
@@ -70,46 +71,28 @@
     },
     methods: {
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.create_custom_forms = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {tool_configuration: this.tabData.raw_data}
+          acdc_assessment: {
+            tool_configuration: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },
     watch: {
       tabData: {
-         handler(val){
-           if(Object.keys(this.tabData.raw_data).length !== 0) {
-            for(var k=0; k<this.tabData.tools.length; k++) {
-              if(this.tabData.tools[k] == 'psychometry') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].languages.length == 0
-                  || this.tabData.raw_data[k].assessment_type == ''
-                  || this.tabData.raw_data[k].candidate_stage == ''
-                  || this.tabData.raw_data[k].page_size.text == ''
-              } else if(this.tabData.tools[k] == 'bhive_with_hire_me') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].access_code == ''
-              } else if(this.tabData.tools[k] == 'bhive_with_cocubes') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].assessment_flow == ''
-              } else if(this.tabData.tools[k] == 'bhive_with_jombay_aptitude') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].aptitude_assessment.text == ''
-              } else if(this.tabData.tools[k] == 'mini_hive_with_pearson_ravens') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].url == ''
-                  || this.tabData.raw_data[k].thank_you_message == ''
-              } else if(this.tabData.tools[k] == 'mini_hive_with_jombay_critical_thinking') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].aptitude_assessment.text == ''
-              } else if(this.tabData.tools[k] == 'mini_hive_with_wg') {
-                this.isSaveNextButtonDisabled = this.tabData.raw_data[k].url == ''
-                  || this.tabData.raw_data[k].thank_you_message == ''
-              }
-              if (this.isSaveNextButtonDisabled) {
-                break;
-              }
-            }
-          }
+        handler(val){
+          this.isSaveNextButtonDisabled = validationHelper.isConfigureToolsTabValid(this.tabData.raw_data, this.tabData.tools)
         },
         deep: true
       }
+    },
+    created: function() {
+      this.isSaveNextButtonDisabled = validationHelper.isConfigureToolsTabValid(this.tabData.raw_data, this.tabData.tools)
     }
   }
 </script>

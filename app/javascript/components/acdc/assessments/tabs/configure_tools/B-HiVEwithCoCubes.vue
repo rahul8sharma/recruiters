@@ -44,7 +44,7 @@
         </a>
         <em class="fs-12 black-6">(Tool weightage)</em>
 
-        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']"">
+        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']">
 
           <div class="form-group large-15 column">
             <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">

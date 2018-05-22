@@ -18,7 +18,8 @@ export default {
     assessmentReportConfiguration: {},
     assessmentCurrentTab: 1,
     changeCurrentTab: {text: 'Description', index: 0},
-    allAssessment: {}
+    allAssessment: {},
+    assessmentTabSaved: {}
   },
   mutations: {
     setUserId (state, payload) {
@@ -72,6 +73,7 @@ export default {
       state.assessmentSelectQuestions = payload.select_questions,
       state.assessmentSelectTemplates = payload.select_templates,
       state.assessmentReportConfiguration = payload.report_configuration
+      state.assessmentTabSaved = payload.raw_data
     },
     setAssessmentCurrentTab (state, payload) {
       state.assessmentCurrentTab = payload
@@ -81,6 +83,9 @@ export default {
     },
     setAllAssessment (state, payload) {
       state.allAssessment = payload
+    },
+    setAssessmentTabSaved (state, payload) {
+      state.assessmentTabSaved = payload
     }
   },
   actions: {
@@ -120,6 +125,7 @@ export default {
         })
         .then(function (response) {
           commit('setAssessmentdata', response);
+          commit('setAssessmentRawData', setAssessmentData(response));
           commit('setAssessmentRawData', setAssessmentData(response));
         })
         .catch(error => {
@@ -239,6 +245,9 @@ export default {
     },
     allAssessment (state) {
       return state.allAssessment
+    },
+    assessmentTabSaved (state) {
+      return state.assessmentTabSaved
     }
   }
 };

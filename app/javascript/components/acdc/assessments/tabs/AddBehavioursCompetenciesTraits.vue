@@ -69,21 +69,22 @@
         this.currentComponent = name
       },
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.select_subjective_objective_questions = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {add_behaviours_competencies_traits: this.tabData.raw_data}
+          acdc_assessment: {
+            add_behaviours_competencies_traits: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },
     watch: {
       tabData: {
         handler(val){
-          if(this.isAssessmentClassCompetency) {
-            this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data.job_assessment_factor_norms_attributes, this.isAssessmentClassCompetency)
-          } else {
-            this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data.competencies, this.isAssessmentClassCompetency)
-          }
+          this.isSaveNextButtonDisabled = validationHelper.isTraitAndCompetencyTabValid(this.tabData.raw_data, this.isAssessmentClassCompetency)
         },
         deep: true
       }
@@ -96,39 +97,9 @@
           return false
         }
       }
+    },
+    created: function() {
+      this.isSaveNextButtonDisabled = validationHelper.isTraitAndCompetencyTabValid(this.tabData.raw_data, this.isAssessmentClassCompetency)
     }
-  }
-
-  function isValidForm(competenciesAndTrait, isAssessmentClassCompetency) {
-    var isValid = true;
-    for(var k=0; k<competenciesAndTrait.length; k++) {
-      if (isAssessmentClassCompetency) {
-        isValid = competenciesAndTrait[k].name == null
-          || competenciesAndTrait[k].name == 'Select Trait'
-          || competenciesAndTrait[k].name.length == 0 
-          || competenciesAndTrait[k].weight.length == 0
-        if (isValid) {
-          break;
-        }
-      } else {
-        var isTraitValid = true;
-        for(var i=0; i<competenciesAndTrait[k].selectedFactors.length; i++) {
-          isTraitValid = competenciesAndTrait[k].selectedFactors[i].weight.length == 0
-            || competenciesAndTrait[k].selectedFactors[i].name == null
-            || competenciesAndTrait[k].selectedFactors[i].name == 'Select Trait'
-            || competenciesAndTrait[k].selectedFactors[i].name.length == 0
-          if (isTraitValid) {
-            break;
-          }
-        }
-        isValid = validationHelper.checkLengthInterval(competenciesAndTrait[k].name, 20)
-          || competenciesAndTrait[k].weight.length == 0
-          || competenciesAndTrait[k].factor_ids.length == 0 || isTraitValid
-        if (isValid) {
-          break;
-        }
-      }
-    }
-    return isValid
   }
 </script>

@@ -106,10 +106,15 @@
         this.tabData.raw_data.pdf = { sections: deepConfigHelper.getSelectedReportConfig(cloneConfig) }
       },
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.review = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {report_configuration: this.tabData.raw_data}
+          acdc_assessment: {
+            report_configuration: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },

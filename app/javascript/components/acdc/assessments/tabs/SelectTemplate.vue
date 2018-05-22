@@ -51,6 +51,7 @@
 <script>
   import SelectTemplate from 'components/acdc/assessments/tabs/email_template/Select.vue'
   import NewTemplate from 'components/acdc/assessments/tabs/email_template/New.vue'
+  import validationHelper from 'helpers/validation.js'
 
   export default {
     props: ['tabData'],
@@ -100,10 +101,15 @@
         }
       },
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.report_configuration = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {select_templates: this.tabData.raw_data}
+          acdc_assessment: {
+            select_templates: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },
@@ -119,35 +125,15 @@
         // assign default data
         this.assignData(this.templates.invitation_templates, "invitation_template_id", "create_invitation_template")
       });
+      this.isSaveNextButtonDisabled = validationHelper.isTemplateTabValid(this.tabData.raw_data)
     },
     watch: {
       tabData: {
-         handler(val){
-           if(Object.keys(this.tabData.raw_data).length !== 0) {
-            this.isSaveNextButtonDisabled = isValidForm(this.tabData.raw_data)
-          } else {
-            this.isSaveNextButtonDisabled = true
-          }
-         },
-         deep: true
+        handler(val){
+          this.isSaveNextButtonDisabled = validationHelper.isTemplateTabValid(this.tabData.raw_data)
+        },
+        deep: true
       }
     }
-  }
-
-  function isValidForm(raw_data) {
-    var isInvitationTemplateIdValid = true, isReminderTemplateIdValid = true
-    if (raw_data.invitation_template_id != null ) {
-      isInvitationTemplateIdValid = raw_data.invitation_template_id.length == 0
-    }
-    if (raw_data.reminder_template_id != null ) {
-      isReminderTemplateIdValid = raw_data.reminder_template_id.length == 0
-    }
-    return (
-        isInvitationTemplateIdValid
-        && Object.keys(raw_data.create_invitation_template).length == 0
-      ) || (
-        isReminderTemplateIdValid
-        && Object.keys(raw_data.create_reminder_template).length == 0
-      )
   }
 </script>

@@ -63,10 +63,15 @@
         this.isObjective = false
       },
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.select_template = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {select_questions: this.tabData.raw_data}
+          acdc_assessment: {
+            select_questions: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     }
