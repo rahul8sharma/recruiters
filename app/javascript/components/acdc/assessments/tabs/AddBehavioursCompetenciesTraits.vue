@@ -51,6 +51,7 @@
   import CompetencyTraits from 'components/acdc/assessments/tabs/add_behaviours_competencies_traits/AddCompetenciesAndTraits.vue'
   import Traits from 'components/acdc/assessments/tabs/add_behaviours_competencies_traits/AddTraits.vue'
   import assessmentHelper from 'helpers/assessment.js'
+  import validationHelper from 'helpers/validation.js'
 
   export default {
     props: ['tabData'],
@@ -120,7 +121,7 @@
             break;
           }
         }
-        isValid = competenciesAndTrait[k].name.length == 0
+        isValid = validationHelper.checkLengthInterval(competenciesAndTrait[k].name, 20)
           || competenciesAndTrait[k].weight.length == 0
           || competenciesAndTrait[k].factor_ids.length == 0 || isTraitValid
         if (isValid) {

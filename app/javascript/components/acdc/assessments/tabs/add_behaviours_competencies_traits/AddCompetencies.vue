@@ -16,12 +16,12 @@ Select Trait<template>
         <div class="fs-16 large-1 columns black-9 line-height-4">{{ competencyIndex + 1 }}.</div>
 
         <div class="form-group large-8 columns">
-           <input type="text" v-model="competency.name" placeholder="Competency name" />
+           <input type="text" v-model="competency.name" placeholder="Competency name" :maxlength="nameMaxLength + (competency.name.length - competency.name.trim().length)" />
            <label>Competency name</label>
         </div>
 
         <em class="large-5 columns fs-12 black-6 line-height-3">
-          0/20 characters
+          {{nameMaxLength - competency.name.trim().length}}/{{nameMaxLength}} characters
         </em>
         <div class="form-group large-3 columns">
           <input type="text" placeholder="Weightage" v-model="competency.weight" />
@@ -79,7 +79,8 @@ Select Trait<template>
     props: ['tabData'],
     data () {
       return {
-        moreActions: false
+        moreActions: false,
+        nameMaxLength: 20
       }
     },  
     methods: {

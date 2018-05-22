@@ -183,10 +183,10 @@
     },
     created: function() {
       this.get.traits({
-        company_id: 2,
-        functional_areas_id: 1,
-        industry_id: 1,
-        job_experience_id: 1
+        company_id: this.$store.state.AcdcStore.companyId,
+        functional_areas_id: this.$store.state.AcdcStore.assessmentRawData.description.functional_area_id.value,
+        industry_id: this.$store.state.AcdcStore.assessmentRawData.description.industry_id.value,
+        job_experience_id: this.$store.state.AcdcStore.assessmentRawData.description.job_experience_id.value
        })
       .then(response => {
         return response.json()

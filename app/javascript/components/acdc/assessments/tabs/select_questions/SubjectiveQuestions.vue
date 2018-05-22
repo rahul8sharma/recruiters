@@ -57,7 +57,7 @@
     },
     mounted: function () {
       document.getElementById('addBlankButton').onclick = function() {
-        assessmentHelper.insertAtCursor(document.getElementById('questionEditor'), '< > Blank');
+        assessmentHelper.insertAtCursor(document.getElementById('questionEditor'), '<text_box>');
       };
     }
   }

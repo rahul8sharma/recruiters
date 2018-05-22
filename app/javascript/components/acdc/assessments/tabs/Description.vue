@@ -25,13 +25,13 @@
     <div class="edit_section">
       <form>
         <div class="form-group large-15 column">
-          <input type="text" placeholder="Name of Assessment" v-model="tabData.name" :maxlength="nameMaxLength" />
+          <input type="text" placeholder="Name of Assessment" v-model="tabData.name" :maxlength="nameMaxLength + (tabData.name.length - tabData.name.trim().length)" />
           <label>Name of Assessment</label>
         </div>
 
         <div class="large-15 column fs-14 black-6">
           <div class="divider-1"></div>
-          {{nameMaxLength - tabData.name.length}}/{{nameMaxLength}} characters
+          {{nameMaxLength - tabData.name.trim().length}}/{{nameMaxLength}} characters
         </div>
 
         <div class="clr"></div>
@@ -90,6 +90,7 @@
 </template>
 <script>
   import { ModelSelect } from 'vue-search-select'
+  import validationHelper from 'helpers/validation.js'
  
   export default {
     props: ['tabData'],
@@ -122,7 +123,7 @@
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {description: this.tabData.raw_data, name: this.tabData.name}
+          acdc_assessment: {description: this.tabData.raw_data, name: this.tabData.name.trim()}
         })
       }
     },
@@ -130,7 +131,7 @@
       tabData: {
          handler(val){
            if(Object.keys(this.tabData.raw_data).length !== 0) {
-            this.isSaveNextButtonDisabled = this.tabData.name.length == 0 || this.tabData.raw_data.industry_id.value == '' || this.tabData.raw_data.industry_id.value == null
+            this.isSaveNextButtonDisabled = validationHelper.checkLengthInterval(this.tabData.name, 20) || this.tabData.raw_data.industry_id.value == '' || this.tabData.raw_data.industry_id.value == null
           }
          },
          deep: true
