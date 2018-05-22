@@ -66,6 +66,7 @@
   import FormPreview from 'components/acdc/assessments/tabs/custom_forms/FormPreview.vue'
   import CreatNewModel from 'components/acdc/assessments/tabs/custom_forms/CreateNew.vue'
   import { ModelSelect } from 'vue-search-select'
+  import validationHelper from 'helpers/validation.js'
  
   export default {
     props: ['tabData'],
@@ -121,6 +122,7 @@
          this.previewForm.showPreview = true
         }
       });
+      this.isSaveNextButtonDisabled = validationHelper.isCustomFormTabValid(this.tabData.raw_data)
     },
     components: {
       ModelSelect, FormPreview, CreatNewModel
@@ -208,11 +210,7 @@
       },
       tabData: {
          handler(val){
-           if(Object.keys(this.tabData.raw_data).length !== 0) {
-            let definedFormId = this.tabData.raw_data.defined_form_id.value
-            this.isSaveNextButtonDisabled = (definedFormId == null || definedFormId.length == 0)
-            && (this.tabData.raw_data.defined_form == null || Object.keys(this.tabData.raw_data.defined_form).length == 0)
-          }
+           this.isSaveNextButtonDisabled = validationHelper.isCustomFormTabValid(this.tabData.raw_data)
          },
          deep: true
       }

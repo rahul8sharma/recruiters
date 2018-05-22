@@ -117,6 +117,7 @@
           this.industries = data.industries
           this.jobExperiences = data.job_experiences
         })
+      this.isSaveNextButtonDisabled = validationHelper.isDescriptionTabValid(this.tabData.raw_data, this.tabData.name)
     },
     methods: {
       saveAndNext() {
@@ -129,11 +130,9 @@
     },
     watch: {
       tabData: {
-         handler(val){
-           if(Object.keys(this.tabData.raw_data).length !== 0) {
-            this.isSaveNextButtonDisabled = validationHelper.checkLengthInterval(this.tabData.name, 20) || this.tabData.raw_data.industry_id.value == '' || this.tabData.raw_data.industry_id.value == null
-          }
-         },
+          handler(val){
+            this.isSaveNextButtonDisabled = validationHelper.isDescriptionTabValid(this.tabData.raw_data, this.tabData.name)
+          },
          deep: true
       }
     }
