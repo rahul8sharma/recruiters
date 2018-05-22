@@ -69,10 +69,15 @@
         this.currentComponent = name
       },
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.select_subjective_objective_questions = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {add_behaviours_competencies_traits: this.tabData.raw_data}
+          acdc_assessment: {
+            add_behaviours_competencies_traits: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },

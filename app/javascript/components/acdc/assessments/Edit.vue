@@ -37,8 +37,8 @@
         <li class="tab_item " 
           v-for="(tab, index) in tabItems"
           v-bind:key="tab.text"
-          v-bind:class="['done', { active: currentTab === tab.text }]"
-          v-on:click="tabHandler(tab.text, index + 1)">
+          v-bind:class="[{ done: isTabValid(tab.url) }, { active: currentTab === tab.text }, {inActive: !isTabValid(tab.url)}]"
+          v-on:click="tabHandler(tab.text, index + 1, isTabValid(tab.url))">
           <div class="index">
             <div class="count">{{ index + 1 }}</div>
           </div> 
@@ -81,6 +81,7 @@
   import Loader from 'components/shared/loader.vue';
   import ToolsJson from 'config/tools.json'
   import assessmentHelper from 'helpers/assessment.js'
+  import validationHelper from 'helpers/validation.js'
 
   export default {
     components: { Description, ConfigureTools,
@@ -154,9 +155,11 @@
       setCurrentTabIndex:function(index){
         this.currentTabIndex = index
       },
-      tabHandler:function(text, index){
-        this.setCurrentTab(text);
-        this.setCurrentTabIndex(index);
+      tabHandler:function(text, index, isValid){
+        if(isValid) {
+          this.setCurrentTab(text);
+          this.setCurrentTabIndex(index);
+        }
       },
       saveAndExit:function(){
         window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
@@ -175,13 +178,20 @@
       },
       splitToolsName(tools) {
         return assessmentHelper.splitToolsName(tools)
+      },
+      isTabValid(tab_url) {
+        if(Object.keys(this.$store.state.AcdcStore.assessmentTabSaved).length !== 0) {
+          return validationHelper.isTabValid(this.$store.state.AcdcStore.assessmentTabSaved, tab_url)
+        } else {
+          return false
+        }
       }
     },
     created: function () {
       let urlLength = window.location.href.split('#').length;
       if (urlLength > 1) {
         let tab = getTextByUrl(window.location.href.split('#')[urlLength - 1], this.tabItems);
-        this.tabHandler(tab.text, tab.index)
+        this.tabHandler(tab.text, tab.index, true)
       }
     },
     beforeMount() {
@@ -216,11 +226,11 @@
       },
       '$store.state.AcdcStore.assessmentCurrentTab' (newCount, oldCount) {
         let tab = getNextTab(this.currentTab, this.tabItems)
-        this.tabHandler(tab.text, tab.index)
+        this.tabHandler(tab.text, tab.index, true)
       },
       '$store.state.AcdcStore.changeCurrentTab' (newCount, oldCount) {
         let tab = this.$store.state.AcdcStore.changeCurrentTab
-        this.tabHandler(tab.text, tab.index)
+        this.tabHandler(tab.text, tab.index, true)
       }
     }
   }
@@ -349,6 +359,13 @@
         background: #fff
         .tab_name
           color: $color-warning
+      &.inActive
+        cursor: not-allowed
+        &:hover
+          background: transparent
+          border-color: transparent
+          cursor: not-allowed
+          opacity: 1
       &.done
         .index
           background: url('~assets/images/ic-checked.svg') no-repeat 0 0

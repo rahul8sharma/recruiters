@@ -71,10 +71,15 @@
     },
     methods: {
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.create_custom_forms = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {tool_configuration: this.tabData.raw_data}
+          acdc_assessment: {
+            tool_configuration: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },

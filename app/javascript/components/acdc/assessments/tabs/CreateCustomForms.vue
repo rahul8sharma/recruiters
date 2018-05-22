@@ -181,10 +181,15 @@
         this.model.createNewShow=true
       },
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.add_behaviours_competencies_traits = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {create_custom_forms: this.tabData.raw_data}
+          acdc_assessment: {
+            create_custom_forms: this.tabData.raw_data,
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },

@@ -121,10 +121,15 @@
     },
     methods: {
       saveAndNext() {
+        let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        assessmentTabSaved.tool_configuaration = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {description: this.tabData.raw_data, name: this.tabData.name.trim()}
+          acdc_assessment: {
+            description: this.tabData.raw_data, name: this.tabData.name.trim(),
+            raw_data: assessmentTabSaved
+          }
         })
       }
     },

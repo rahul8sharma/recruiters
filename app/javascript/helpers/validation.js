@@ -125,8 +125,29 @@ function isTemplateTabValid(raw_data) {
 	return true
 }
 
+// Check all tab is valid to disable click on tab
+function isTabValid(assessmentTabSaved, tab_url) {
+  if (tab_url == 'description') {
+    return assessmentTabSaved.description
+  } else if (tab_url == 'tool_configuaration') {
+    return assessmentTabSaved.tool_configuaration
+  } else if (tab_url == 'create_custom_forms') {
+    return assessmentTabSaved.create_custom_forms
+  } else if (tab_url == 'add_behaviours_competencies_traits') {
+    return assessmentTabSaved.add_behaviours_competencies_traits
+  } else if (tab_url == 'select_subjective_objective_questions') {
+    return assessmentTabSaved.select_subjective_objective_questions
+  } else if (tab_url == 'select_template') {
+    return assessmentTabSaved.select_template
+  } else if (tab_url == 'report_configuration') {
+    return assessmentTabSaved.report_configuration
+  } else if (tab_url == 'review') {
+    return assessmentTabSaved.review
+  }
+}
+
 export default {
 	checkLengthInterval, isEmpty, isDescriptionTabValid, isJsonEmpty,
 	isConfigureToolsTabValid, isCustomFormTabValid, isTraitAndCompetencyTabValid,
-	isTemplateTabValid
+	isTemplateTabValid, isTabValid
 }

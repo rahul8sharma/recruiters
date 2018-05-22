@@ -229,7 +229,17 @@
             select_templates: select_templates,
             report_configuration: report_configuration,
             product_id: '',
-            tools: this.assessment.tools
+            tools: this.assessment.tools,
+            raw_data: {
+              description: true,
+              tool_configuaration: false,
+              create_custom_forms: false,
+              add_behaviours_competencies_traits: false,
+              select_subjective_objective_questions: false,
+              select_template: false,
+              report_configuration: false,
+              review: false
+            }
           }
         })
       },
