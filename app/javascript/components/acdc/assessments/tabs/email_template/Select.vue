@@ -4,8 +4,11 @@
       <div class="divider-1"></div>
       <div class="flex-box">
         <div>
-          <div class="fs-16 black-9 bold">Invitation Template</div>
+          <div v-if="templateName == 'invitation_template_id'" class="fs-16 black-9 bold">Invitation Template</div>
+          <div v-else-if="templateName == 'assessment_completion_notification_template_id'" class="fs-16 black-9 bold">Completion Notification</div>
+          <div  v-else-if="templateName == 'reminder_template_id'"  class="fs-16 black-9 bold">Reminder</div>
           <div class="divider-1"></div>
+
           <label v-if="templateName == 'assessment_completion_notification_template_id'" class="custom-checkbox">
             <input v-model="tabData.enable_completion_notification" type="checkbox"/>
 
@@ -40,6 +43,9 @@
       <div class="form_preview">
         <div class="clearfix">
           <div class="fs-16 black-9 bold left">Form Preview:</div>
+
+          <em v-if="isTemplateNewOrEdit" class="fs-12 black-6">&ensp;(changes saved for {{newTemplateName()}})</em>  
+
           <a href="" @click.prevent="editTemplate()" class="button btn-warning btn-link uppercase fs-14 bold right">Edit Template</a>
         </div>
       </div>
@@ -130,8 +136,16 @@
         this.model.create_template = JSON.parse(JSON.stringify(this.model.selectTemplated));
         this.model.create_template["template_category_id"] = this.templateCategoryIds[this.createTemplateName]
         this.model.showModel = true
+      },
+      newTemplateName() {
+        return this.tabData[this.createTemplateName].name
       }
-    }
+    },
+    computed: {
+      isTemplateNewOrEdit: function () {
+        return (this.tabData[this.createTemplateName] != undefined && Object.keys(this.tabData[this.createTemplateName]).length !== 0)
+      }
+    }  
   }
 
   function indexWhere(array, conditionFn) {
