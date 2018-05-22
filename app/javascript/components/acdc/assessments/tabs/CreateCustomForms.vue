@@ -45,6 +45,8 @@
     <div class="divider-1"></div>
 
     <div class="fs-16 black-9 left bold">Form Preview:</div>
+    <em v-if="isFormNewOrEdit" class="fs-12 black-6">&ensp;(changes saved for {{tabData.raw_data.defined_form.name}})</em>
+    
     <button v-if="previewForm.showPreview" @click="editForm()" class="button btn-warning btn-link uppercase fs-16 right bold">Edit</button>
     <div class="clr"></div>
     
@@ -109,11 +111,11 @@
       })
       .then(data => {
         this.existingForms = data
-        if(this.tabData.raw_data.defined_form_id.value != null && this.tabData.raw_data.defined_form_id.value.length !== 0) {
+        if(this.tabData.raw_data.defined_form_id != undefined && this.tabData.raw_data.defined_form_id.value != null && this.tabData.raw_data.defined_form_id.value.length !== 0) {
          this.existingForm = this.tabData.raw_data.defined_form_id
          this.tabData.raw_data.defined_form = {}
         }
-        if(Object.keys(this.tabData.raw_data.defined_form).length !== 0) {
+        if(this.tabData.raw_data.defined_form_id != undefined && Object.keys(this.tabData.raw_data.defined_form).length !== 0) {
          this.existingForm = { value: '', text: '' }
          this.previewForm.definedFields = this.tabData.raw_data.defined_form.defined_fields_attributes
          this.previewForm.showPreview = true
@@ -213,6 +215,11 @@
           }
          },
          deep: true
+      }
+    },
+    computed: {
+      isFormNewOrEdit: function () {
+        return (this.tabData[this.createTemplateName] != undefined && (Object.keys(tabData.raw_data.defined_form).length !== 0))
       }
     }
   }

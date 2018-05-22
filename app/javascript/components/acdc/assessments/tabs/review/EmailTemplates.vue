@@ -16,16 +16,14 @@
          <div class="p-8 fs-16">
            <p class="clearfix">
              <strong class="large-3">From: </strong>
-             <span class="large-3">{{invitation.from}}</span>
+             <span class="large-3"><span v-html="invitation.from"></span></span>
            </p>
            <p class="clearfix">
              <strong class="large-3">Subject: </strong>
-             <span class="large-3">{{invitation.subject}}</span>
+             <span class="large-3"><span v-html="invitation.subject"></span></span>
            </p>
            <hr/>
            <div class="pb-12 pt-12">
-             <p>Hello <strong>&lt;{{invitation.name}}&gt;</strong>,</p>
-
               <p v-html="invitation.body"></p>
            </div>
 
@@ -41,16 +39,14 @@
          <div class="p-8 fs-16">
            <p class="clearfix">
              <strong class="large-3">From: </strong>
-             <span class="large-3">{{reminder.from}}</span>
+             <span class="large-3"><span v-html="reminder.from"></span></span>
            </p>
            <p class="clearfix">
              <strong class="large-3">Subject: </strong>
-             <span class="large-3">{{reminder.subject}}</span>
+             <span class="large-3"><span v-html="reminder.subject"></span></span>
            </p>
            <hr/>
            <div class="pb-12 pt-12">
-             <p>Hello <strong>&lt;{{reminder.name}}&gt;</strong>,</p>
-
               <p v-html="reminder.body"></p>
            </div>
 
@@ -65,16 +61,14 @@
          <div class="p-8 fs-16">
            <p class="clearfix">
              <strong class="large-3">From: </strong>
-             <span class="large-3">{{assessmentCompletion.from}}</span>
+             <span class="large-3"><span v-html="assessmentCompletion.from"></span></span>
            </p>
            <p class="clearfix">
              <strong class="large-3">Subject: </strong>
-             <span class="large-3">{{assessmentCompletion.subject}}</span>
+             <span class="large-3"><span v-html="assessmentCompletion.subject"></span></span>
            </p>
            <hr/>
            <div class="pb-12 pt-12">
-             <p>Hello <strong>&lt;{{assessmentCompletion.name}}&gt;</strong>,</p>
-
               <p v-html="assessmentCompletion.body"></p>
            </div>
 
