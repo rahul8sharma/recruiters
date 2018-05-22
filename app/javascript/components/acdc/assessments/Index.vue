@@ -118,6 +118,7 @@
   import Loader from 'components/shared/loader.vue';
   import assessmentHelper from 'helpers/assessment.js'
   import assessmentUrlHelper from 'helpers/assessmentUrl.js'
+  import validationHelper from 'helpers/validation.js'
   import Paginate from 'vuejs-paginate'
 
   export default {
@@ -154,19 +155,19 @@
           this.assessment.tools.push(this.assessment.product)
         }
         let description = {
-          industry_id: { text:'', value: ''},
-          functional_area_id: { text:'', value: ''},
-          job_experience_id: { text:'', value: ''},
+          industry_id: { text: "", value: ""},
+          functional_area_id: { text: "", value: ""},
+          job_experience_id: { text: "", value: ""},
           enable_proctoring: false
         }
         let tool_configuration = []
         let create_custom_forms = {
-          defined_form_id: { text:'', value: ''},
+          defined_form_id: { text: "", value: ""},
           defined_form: {}
         }
         let add_behaviours_competencies_traits = {
           competencies: [{
-            name: '',
+            name: "",
             description: "-",
             modules: ["suitability"],
             factor_ids: [],
@@ -174,18 +175,18 @@
             weight: 1.0,
             order: 0,
             selectedFactors: [{
-              factor_id: '',
+              factor_id: "",
               name: 'Select Trait',
-              from_norm_bucket: {value: '', text: ''},
-              to_norm_bucket: {value: '', text: ''},
+              from_norm_bucket: {value: "", text: ""},
+              to_norm_bucket: {value: "", text: ""},
               weight: 1.0
             }]
           }],
           job_assessment_factor_norms_attributes: [{
-            factor_id: '',
+            factor_id: "",
             name: 'Select Trait',
-            from_norm_bucket: {value: '', text: ''},
-            to_norm_bucket: {value: '', text: ''},
+            from_norm_bucket: {value: "", text: ""},
+            to_norm_bucket: {value: "", text: ""},
             weight: 1.0
           }],
           showCompetencyScoreOnReport: false,
@@ -194,7 +195,7 @@
         }
         let select_questions = {
           objective_question: {
-            weightage: '',
+            weightage: "",
             is_question_uploaded: false,
             sections: []
           },
@@ -203,9 +204,9 @@
           }
         }
         let select_templates = {
-          invitation_template_id: '',
-          assessment_completion_notification_template_id: '',
-          reminder_template_id: '',
+          invitation_template_id: "",
+          assessment_completion_notification_template_id: "",
+          reminder_template_id: "",
           enable_completion_notification: false,
           create_invitation_template: {},
           create_completion_notification_template: {},
@@ -217,7 +218,7 @@
         }
         this.$store.dispatch('createAcdcAssessment', {
           acdc_assessment: {
-            name: this.assessment.name,
+            name: this.assessment.name.trim(),
             company_id: this.$store.getters.companyId,
             user_id: this.$store.getters.userId,
             description: description,
@@ -275,9 +276,11 @@
     computed: {
       isCreateSubmitButtonEnable () {
         if (this.assessment.product == 'mini_hive') {
-          return !(this.assessment.name != '' && this.assessment.tools.length != 0 )
+          return validationHelper.checkLengthInterval(this.assessment.name, 20) 
+            || validationHelper.isEmpty(this.assessment.tools)
         } else {
-          return !(this.assessment.name != '' && this.assessment.product != '' )
+          return validationHelper.checkLengthInterval(this.assessment.name, 20)
+            || validationHelper.isEmpty(this.assessment.product)
         }
       }
     },

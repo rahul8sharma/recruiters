@@ -12,13 +12,13 @@
           <form>
             <div class="p-30">
               <div class="form-group large-15 column">
-                <input type="text" v-model="definedForm.name" placeholder="Name of the form:" :maxlength="nameMaxLength" required />
+                <input type="text" v-model="definedForm.name" placeholder="Name of the form:" :maxlength="nameMaxLength + (definedForm.name.length - definedForm.name.trim().length)" required />
                 <label>Name of the form:</label>
               </div>
 
               <div class="large-15 column fs-14 black-6">
                 <div class="divider-1"></div>
-                {{nameMaxLength - definedForm.name.length}}/{{nameMaxLength}} characters
+                {{nameMaxLength - definedForm.name.trim().length}}/{{nameMaxLength}} characters
               </div>
 
               <div class="clr"></div>
@@ -160,6 +160,7 @@
 </style>
 <script>
   import { ModelSelect } from 'vue-search-select'
+  import validationHelper from 'helpers/validation.js'
 
   export default {
     props: ['previewForm', 'tabData', 'model', 'definedForm'],
@@ -238,7 +239,8 @@
     computed: {
       isSaveBuddonDisabled: {
         get: function () {
-          return this.definedForm.name.length == 0 || isValidForm(this.definedForm)
+          return validationHelper.checkLengthInterval(this.definedForm.name, 20) 
+            || isValidForm(this.definedForm)
         },
         set: function (newValue) {
           return newValue

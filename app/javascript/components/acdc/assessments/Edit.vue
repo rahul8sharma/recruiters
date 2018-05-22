@@ -5,7 +5,9 @@
       <div class="fs-18 black-10">
         <div class="assessment_title bold">
           {{this.$store.state.AcdcStore.assessmentName}}
-          <span class="fs-14 font-normal">(B-Hive with Co-Cubes)</span>
+          <span class="fs-14 font-normal" v-if="$store.state.AcdcStore.assessmentRawData.tools != null">
+            ({{splitToolsName($store.state.AcdcStore.assessmentRawData.tools)}})
+          </span>
         </div>
         <em class="fs-14 black-7">ID: {{this.$store.state.AcdcStore.assessmentId}}, Status: In {{this.$store.state.AcdcStore.assessmentStatus}}</em>
       </div>
@@ -78,6 +80,7 @@
   import Review from 'components/acdc/assessments/tabs/Review.vue';
   import Loader from 'components/shared/loader.vue';
   import ToolsJson from 'config/tools.json'
+  import assessmentHelper from 'helpers/assessment.js'
 
   export default {
     components: { Description, ConfigureTools,
@@ -169,6 +172,9 @@
           .catch(() => {
               console.log('Delete aborted');
           });
+      },
+      splitToolsName(tools) {
+        return assessmentHelper.splitToolsName(tools)
       }
     },
     created: function () {

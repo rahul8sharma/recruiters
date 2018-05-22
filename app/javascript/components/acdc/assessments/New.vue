@@ -9,12 +9,12 @@
       <div class="modal-body">
         <div class="create_assessment">
           <div class="form-group large-15 column">
-            <input type="text" placeholder="Name of Assessment" v-model="assessment.name" :maxlength="nameMaxLength">
+            <input type="text" placeholder="Name of Assessment" v-model="assessment.name" :maxlength="nameMaxLength + (assessment.name.length - assessment.name.trim().length)">
             <label>Name of Assessment*</label>
           </div>
           <div class="large-15 column fs-14 black-6">
             <div class="divider-1"></div>
-            {{nameMaxLength - assessment.name.length}}/{{nameMaxLength}} characters
+            {{nameMaxLength - assessment.name.trim().length}}/{{nameMaxLength}}characters
           </div>
           <div class="clr"></div>
           <em class="large-15 fs-12 black-6">(*The Name of the Assessment appears on the Report and Dashboard)</em>
