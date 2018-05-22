@@ -83,7 +83,7 @@
         </a>
         <em class="fs-12 black-6 pl-20">(Applicant ID, Help Text, Tool weightage)</em>
 
-        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']"">
+        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']">
 
           <div class="clearfix">
             <div class="large-15 columns">

@@ -277,7 +277,7 @@
       isCreateSubmitButtonEnable () {
         if (this.assessment.product == 'mini_hive') {
           return validationHelper.checkLengthInterval(this.assessment.name, 20) 
-            || validationHelper.isEmpty(this.assessment.tools)
+            || this.assessment.tools.length == 0
         } else {
           return validationHelper.checkLengthInterval(this.assessment.name, 20)
             || validationHelper.isEmpty(this.assessment.product)

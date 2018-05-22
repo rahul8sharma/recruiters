@@ -18,11 +18,17 @@
 
       <div class="clearfix">
 
-        <vue-editor placeholder="WYSIWYG Editor for Thank you page" id="editor1" v-model="configureToolData.thank_you_message"></vue-editor>
+        <trumbowyg 
+          v-model="configureToolData.thank_you_message"
+          :config="configs"
+          class="form-control"
+          placeholder="Thank you page"
+        >
+        </trumbowyg>
 
-        <div class="large-14 columns fs-14 black-6 p-16">
+        <!-- <div class="large-14 columns fs-14 black-6 p-16">
           0/400 characters
-        </div>
+        </div> -->
       </div>
      
       <div class="divider-2"></div>
@@ -32,7 +38,7 @@
         </a>
         <em class="fs-12 black-6">(Tool weightage)</em>
 
-        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']"">
+        <div class="more_actions_container" v-bind:class="[moreActions ? 'show' : 'hide']">
 
           <div class="form-group large-15">
             <input v-model="configureToolData.tool_weightage" type="text" placeholder="Tool Weightage">
@@ -50,14 +56,33 @@
 </template>
 
 <script>
-import { VueEditor } from 'vue2-editor'
+import trumbowyg from 'vue-trumbowyg/dist/vue-trumbowyg.js';
+import 'trumbowyg/dist/ui/trumbowyg.css';
 
   export default {
     props: ['configureToolData', 'index'],
-    components: { VueEditor },
+    components: { trumbowyg },
     data () {
       return {
-        moreActions: false
+        moreActions: false,
+        configs: {
+          autogrow: true,
+          autogrowOnEnter: true,
+          removeformatPasted: true,
+          btnsAdd: ['foreColor', 'backColor'],
+          btns: [
+            ['formatting'],
+            ['strong', 'em', 'del'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['fullscreen']
+          ]
+        }
       }
     }
   }

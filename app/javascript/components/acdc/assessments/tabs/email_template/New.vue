@@ -73,22 +73,6 @@
     </div>
   </div>
 </template>
-<style lang="sass" scoped>
-  .text_editor
-    min-height: 200px
-  .create_new_template
-    align-items: stretch !important
-  .template_variables
-    border-left: 2px solid rgba(0, 0, 0, 0.1)
-    .variables
-      color: rgba(0, 0, 0, 0.54)
-      text-decoration: underline
-      font-size: 14px
-
-      &:hover
-        opacity: 0.6
-    
-</style>
 <script>
   import trumbowyg from 'vue-trumbowyg';
   import 'trumbowyg/dist/ui/trumbowyg.css';
@@ -216,3 +200,19 @@
   }
 }
 </script>
+<style lang="sass" scoped>
+  .text_editor
+    min-height: 200px
+  .create_new_template
+    align-items: stretch !important
+  .template_variables
+    border-left: 2px solid rgba(0, 0, 0, 0.1)
+    .variables
+      color: rgba(0, 0, 0, 0.54)
+      text-decoration: underline
+      font-size: 14px
+
+      &:hover
+        opacity: 0.6
+    
+</style>
