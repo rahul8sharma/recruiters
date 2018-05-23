@@ -69,6 +69,26 @@
         this.currentComponent = name
       },
       saveAndNext() {
+        for(var competencyIndex = 0; competencyIndex < this.tabData.raw_data.competencies.length; competencyIndex ++) {
+            let hashCount = {}
+          for(var factor in this.tabData.raw_data.competencies[competencyIndex].selectedFactors) {
+            let factorName = this.tabData.raw_data.competencies[competencyIndex].selectedFactors[parseInt(factor)].name
+            for(var completeCompetencyIndex = 0; completeCompetencyIndex< this.tabData.raw_data.competencies.length; completeCompetencyIndex++) {
+              for(var completeTraitIndex = 0; completeTraitIndex < this.tabData.raw_data.competencies[completeCompetencyIndex].selectedFactors.length; completeTraitIndex++) {
+                if(factorName == this.tabData.raw_data.competencies[completeCompetencyIndex].selectedFactors[completeTraitIndex].name) {
+
+                  hashCount[factorName] == undefined ? hashCount[factorName] = 0 : hashCount[factorName] = hashCount[factorName] + 1
+                  if(hashCount[factorName] > 0) {
+                    this.tabData.raw_data.competencies[completeCompetencyIndex].selectedFactors[completeTraitIndex].to_norm_bucket = this.tabData.raw_data.competencies[competencyIndex].selectedFactors[parseInt(factor)].to_norm_bucket
+
+                    this.tabData.raw_data.competencies[completeCompetencyIndex].selectedFactors[completeTraitIndex].from_norm_bucket = this.tabData.raw_data.competencies[competencyIndex].selectedFactors[parseInt(factor)].from_norm_bucket
+                  }
+                }
+              }
+            }
+          }
+        }
+
         let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
         assessmentTabSaved.select_subjective_objective_questions = true
         this.$store.dispatch('updateAcdcAssessment', {
