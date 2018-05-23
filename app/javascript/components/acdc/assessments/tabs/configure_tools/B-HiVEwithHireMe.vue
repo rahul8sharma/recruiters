@@ -5,7 +5,10 @@
     </div>
 
     <div class="p-15">
-      <div class="divider-2"></div>
+      <div class="large-12 pt-12">
+        <em class="fs-12 black-6">(Hire.Me is an integrated recruitment solution that uniquely addresses the complex challenges HR professionals face when recruiting talent. The platform gives you the ability to effectively reach, engage and evaluate candidates on multiple parameters. Real-time assessment, analytics, and reporting help you make the best candidate hiring and selection decision.)</em>
+      </div>
+      <div class="divider-1"></div>
       
       <div class="clearfix">
         <div class="fs-16 black-9 uppercase large-16 columns">Show Sectional Score  </div>

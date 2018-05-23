@@ -1,4 +1,5 @@
 import Vue from 'vue/dist/vue.esm';
+import assessmentUrlHelper from 'helpers/assessmentUrl.js'
 
 export default {
   state: {
@@ -19,7 +20,9 @@ export default {
     assessmentCurrentTab: 1,
     changeCurrentTab: {text: 'Description', index: 0},
     allAssessment: {},
-    assessmentTabSaved: {}
+    assessmentTabSaved: {},
+    canCreate: true,
+    canApprove: true
   },
   mutations: {
     setUserId (state, payload) {
@@ -86,13 +89,19 @@ export default {
     },
     setAssessmentTabSaved (state, payload) {
       state.assessmentTabSaved = payload
+    },
+    setCanCreate (state, payload) {
+      state.canCreate = payload
+    },
+    setCanApprove (state, payload) {
+      state.canApprove = payload
     }
   },
   actions: {
     createAcdcAssessment ({commit, getters}, payload) {
       Vue.http.post('/companies/2/acdc', payload)
         .then(function (response) {
-          window.location = "/companies/" + response.body.company_id + "/acdc/" + response.body.id + "/edit";
+          window.location = assessmentUrlHelper.getAssessmentEditUrl(response.body.company_id, response.body.id)
         })
         .catch(error => {
           console.log(error)
@@ -100,7 +109,7 @@ export default {
   	},
     updateAcdcAssessment ({commit, getters, state}, payload) {
       Vue.http.put("/companies/" + payload.companyId + "/acdc/" + payload.assessmentId, 
-        { acdc_assessment: payload.acdc_assessment })
+        { acdc_assessment: payload.acdc_assessment, comments: payload.comments })
         .then(function (response) {
           return response.json()
         })
@@ -175,7 +184,7 @@ export default {
           return response.json()
         })
         .then(function (response) {
-          window.location = "/companies/" + payload.companyId + "/acdc"
+          window.location = assessmentUrlHelper.getAssessmentUrl(response.body.company_id)
         })
         .catch(error => {
           console.log(error)
@@ -192,6 +201,12 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    setCanCreate ({commit, getters}, payload) {
+      commit('setCanCreate', payload.canCreate);
+    },
+    setCanApprove ({commit, getters}, payload) {
+      commit('setCanApprove', payload.canApprove);
     }
   },
   getters: {
@@ -248,10 +263,15 @@ export default {
     },
     assessmentTabSaved (state) {
       return state.assessmentTabSaved
+    },
+    canCreate (state) {
+      return state.canCreate
+    },
+    canApprove (state) {
+      return state.canApprove
     }
   }
 };
-
 function setAssessmentData(response) {
   return {
     'tools': response.tools,

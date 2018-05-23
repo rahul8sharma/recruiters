@@ -7,7 +7,7 @@
     <div class="p-15">
 
       <div class="large-12 pt-12">
-        <em class="fs-12 black-6">(lorem ipsum text for psychometry help item for better understanding of the candidate. Helptext is in Hinglish Language)</em>
+        <em class="fs-12 black-6">(It is a personality assessment tool that has 16 primary scales and other numerous derivative scales. It effectively measures aspects of Personality, Attitude, Emotional Control and Organisational Skills.)</em>
       </div>
 
       <div class="divider-1"></div>

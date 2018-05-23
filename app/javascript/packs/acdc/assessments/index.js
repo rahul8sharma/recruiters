@@ -21,5 +21,7 @@ const index = new Vue({
     // Set company and user id to vuex
     store.dispatch("setUserId", {user_id: element.dataset.user_id});
     store.dispatch("setCompanyId", {company_id: element.dataset.company_id});
+    store.dispatch("setCanCreate", {can_create: element.dataset.can_create});
+    store.dispatch("setCanApprove", {can_approve: element.dataset.can_approve});
   }
 });

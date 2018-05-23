@@ -5,7 +5,10 @@
     </div>
 
     <div class="p-15">
-      <div class="divider-2"></div>
+      <div class="large-12 pt-12">
+        <em class="fs-12 black-6">(The aptitude test measures a candidate's abilities across 3 sections - verbal reasoning, numerical reasoning and logical reasoning. This platform gives you the ability to effectively reach, engage and evaluate candidates on multiple parameters.)</em>
+      </div>
+      <div class="divider-1"></div>
       <div class="clearfix">
         <div class="fs-16 black-9 large-5 columns">
           Select the flow of the assessment
