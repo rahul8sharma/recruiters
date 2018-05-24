@@ -184,7 +184,7 @@ export default {
           return response.json()
         })
         .then(function (response) {
-          window.location = assessmentUrlHelper.getAssessmentUrl(response.body.company_id)
+          window.location = assessmentUrlHelper.getAssessmentUrl(response.company_id)
         })
         .catch(error => {
           console.log(error)

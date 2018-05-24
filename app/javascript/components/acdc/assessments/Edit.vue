@@ -15,10 +15,21 @@
       <div v-if="!isSendForReview">
         <button
           class="btn-link uppercase black-6 fs-14"
-          @click="deleteAssessment"
+          @click="setDeleteModalState"
         >
           Delete this Assessment
         </button>
+        <!-- Popup for delete assessment. -->
+        <Modal
+          v-bind:isModalOpen="modal.isDeleteAssessmentModalOpen"
+          headerText="Delete Assessment"
+          cancelText="CANCEL"
+          confirmText="DELETE"
+          :confirm-method="deleteAssessment"
+          :set-modal-state="setDeleteModalState"
+        >
+          <DeleteAssessment></DeleteAssessment>
+        </Modal>
         <button
           class="btn-warning inverse uppercase fs-14"
           @click="saveAndExit"
@@ -35,7 +46,7 @@
             DISAPPROVE
           </button>
           <DisapproveModal
-            v-bind:isDisapproveModalOpen="disapproveModal.isOpen"
+            v-bind:isDisapproveModalOpen="modal.isDisapproveModalOpen"
             :set-disapprove-modal-state="setDisapproveModalState"
           >
           </DisapproveModal>
@@ -46,7 +57,7 @@
             APPROVE
           </button>
           <ApproveModal
-            v-bind:isApproveModalOpen="approveModal.isOpen"
+            v-bind:isApproveModalOpen="modal.isApproveModalOpen"
             :set-approve-modal-state="setApproveModalState"
           >
           </ApproveModal>
@@ -109,13 +120,15 @@
   import validationHelper from 'helpers/validation.js'
   import ApproveModal from 'components/acdc/assessments/popup/Approve.vue';
   import DisapproveModal from 'components/acdc/assessments/popup/Disapprove.vue';
+  import Modal from 'components/shared/modal.vue';
+  import DeleteAssessment from 'components/acdc/assessments/tabs/actions/Delete.vue';
 
   export default {
     components: { Description, ConfigureTools,
                   CreateCustomForms, AddBehavioursCompetenciesTraits, 
                   SelectSubjectiveObjectiveQuestions, SelectTemplate,
                   ReportConfiguration, Review,
-                  Loader, ApproveModal, DisapproveModal },
+                  Loader, ApproveModal, DisapproveModal, Modal, DeleteAssessment },
     data () {
       return {
         currentTab: 'Description',
@@ -160,11 +173,10 @@
             tabData: { raw_data: {} }
           }
         ],
-        approveModal: {
-          isOpen: false
-        },
-        disapproveModal: {
-          isOpen: false
+        modal: {
+          isDeleteAssessmentModalOpen: false,
+          isApproveModalOpen: false,
+          isDisapproveModalOpen: false
         }
       }
     },
@@ -198,16 +210,10 @@
         window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
       },
       deleteAssessment:function(){
-        this.$dialog.confirm("If you delete this assessment, It'll be gone forever.")
-          .then((dialog) => {
-            this.$store.dispatch('deleteAcdcAssessment', {
-              assessmentId: this.$store.state.AcdcStore.assessmentId,
-              companyId: this.$store.state.AcdcStore.companyId
-            });
-          })
-          .catch(() => {
-              console.log('Delete aborted');
-          });
+        this.$store.dispatch('deleteAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId
+        });
       },
       splitToolsName(tools) {
         return assessmentHelper.splitToolsName(tools)
@@ -220,10 +226,13 @@
         }
       },
       setApproveModalState () {
-        this.approveModal.isOpen = !this.approveModal.isOpen
+        this.modal.isApproveModalOpen = !this.modal.isApproveModalOpen
       },
       setDisapproveModalState () {
-        this.disapproveModal.isOpen = !this.disapproveModal.isOpen
+        this.modal.isDisapproveModalOpen = !this.modal.isDisapproveModalOpen
+      },
+      setDeleteModalState () {
+        this.modal.isDeleteAssessmentModalOpen = !this.modal.isDeleteAssessmentModalOpen
       }
     },
     created: function () {
