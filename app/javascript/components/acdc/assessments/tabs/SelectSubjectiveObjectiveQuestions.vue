@@ -39,6 +39,7 @@
         v-bind:subjectiveQuestion="tabData.raw_data[Object.keys(questionType)[1]]"
       >
       </component>
+      <div class="divider-4"></div>
     </div>
   </div>
 
@@ -64,6 +65,9 @@
       },
       saveAndNext() {
         let assessmentTabSaved = this.$store.state.AcdcStore.assessmentTabSaved
+        if(this.tabData.raw_data.objective_question.is_question_uploaded) {
+          this.tabData.raw_data.objective_question.sections = []
+        }
         assessmentTabSaved.select_template = true
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,

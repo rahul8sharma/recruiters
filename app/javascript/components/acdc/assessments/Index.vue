@@ -97,7 +97,7 @@
               <div class="large-4">{{assessment.attributes.created_at.split('T')[0]}}</div>
               <div class="large-4">{{assessment.attributes.status}}</div>
               <div class="large-4">
-                <a v-bind:href="getAssessmentEditUrl(assessment.attributes.id)" class="bold">Edit Assessment</a>
+                <a v-bind:href="getCompanyAcdcEditUrl(assessment.attributes.id)" class="bold">Edit Assessment</a>
               </div>
             </div>
           </li>
@@ -258,8 +258,8 @@
       getPurpose(tool_configurations) {
         return assessmentHelper.getPurpose(tool_configurations[0])
       },
-      getAssessmentEditUrl(id) {
-        return assessmentUrlHelper.getAssessmentEditUrl(this.$store.state.AcdcStore.companyId, id)
+      getCompanyAcdcEditUrl(id) {
+        return assessmentUrlHelper.getCompanyAcdcEditUrl(this.$store.state.AcdcStore.companyId, id)
       },
       getAssessmentByPage(pageNumber) {
         this.$store.dispatch('setAllAssessment', {

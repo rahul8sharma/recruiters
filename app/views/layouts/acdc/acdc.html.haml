@@ -7,7 +7,7 @@
     = javascript_pack_tag 'application'
     = stylesheet_pack_tag 'application'
   %body
-    #shared-navbar-component.new
+    #shared-navbar-component.new{"data-user_id" => "#{current_user.id}", "data-company_id" => "#{@company.id}", "data-can_create" => "#{(can? :create, "Acdc::Assessment")}", "data-can_approve" => "#{(can? :approve, "Acdc::Assessment")}"}
       %shared-navbar-component
     = javascript_pack_tag 'shared/navbar'
 

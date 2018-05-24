@@ -101,7 +101,7 @@ export default {
     createAcdcAssessment ({commit, getters}, payload) {
       Vue.http.post('/companies/2/acdc', payload)
         .then(function (response) {
-          window.location = assessmentUrlHelper.getAssessmentEditUrl(response.body.company_id, response.body.id)
+          window.location = assessmentUrlHelper.getCompanyAcdcEditUrl(response.body.company_id, response.body.id)
         })
         .catch(error => {
           console.log(error)
