@@ -1,4 +1,4 @@
-#acdc-assessments-edit-component.new{"data-user_id" => "#{current_user.id}", "data-company_id" => "#{@company.id}", "data-assessment_id" => "#{@assessment.id}", "data-assessment_name" => "#{@assessment.name}", "data-assessment_status" => "#{@assessment.status}"}
+#acdc-assessments-edit-component.new{"data-user_id" => "#{current_user.id}", "data-company_id" => "#{@company.id}", "data-assessment_id" => "#{@assessment.id}", "data-assessment_name" => "#{@assessment.name}", "data-assessment_status" => "#{@assessment.status}", "data-can_create" => "#{(can? :create, "Acdc::Assessment")}", "data-can_approve" => "#{(can? :approve, "Acdc::Assessment")}"}
   %acdc-assessments-edit-component
   
 = javascript_pack_tag 'acdc/assessments/edit'

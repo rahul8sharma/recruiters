@@ -5,6 +5,9 @@
     </div>
 
     <div class="p-15">      
+      <div class="large-12 pt-12">
+        <em class="fs-12 black-6">(Jombay Abstract Thinking assesses Analytical Skills and Logical Reasoning, Strategic Thinking, Decision Making, Problem Solving and Overall Learning Agility)</em>
+      </div>
       <div class="divider-1"></div>
       <div class="large-30">
         <a class="more_actions_btn uppercase fs-12 bold" v-bind:class="[moreActions ? 'open' : 'close']" @click="moreActions = !moreActions">

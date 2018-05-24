@@ -10,7 +10,13 @@
         <em class="black-7 fs-14">showing 25 of 123 results</em>
       </div>
       <div class="spacer"></div>
-      <button @click="setModalState" class="button btn-warning big big-text uppercase">Create Assessment</button>
+      <button 
+        @click="setModalState" 
+        class="button btn-warning big big-text uppercase"
+        v-if="!$store.state.AcdcStore.canCreate"
+      >
+        Create Assessment
+      </button>
     </div>
 
     <div class="divider-1"></div>

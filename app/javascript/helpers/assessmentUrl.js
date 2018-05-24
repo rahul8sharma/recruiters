@@ -3,4 +3,9 @@ function getAssessmentEditUrl(companyId, acdcId) {
   return "/companies/" + companyId + "/acdc/" + acdcId + "/edit"
 }
 
-export default { getAssessmentEditUrl }
+// Get assessment URL.
+function getAssessmentUrl(companyId) {
+  return "/companies/" + companyId + "/acdc"
+}
+
+export default { getAssessmentEditUrl, getAssessmentUrl }

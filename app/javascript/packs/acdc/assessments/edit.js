@@ -26,5 +26,7 @@ const edit = new Vue({
     store.dispatch("setAssessmentId", {assessment_id: element.dataset.assessment_id});
     store.dispatch("setAssessmentName", {assessment_name: element.dataset.assessment_name});
     store.dispatch("setAssessmentStatus", {assessment_status: element.dataset.assessment_status});
+    store.dispatch("setCanCreate", {can_create: element.dataset.can_create});
+    store.dispatch("setCanApprove", {can_approve: element.dataset.can_approve});
   }
 });

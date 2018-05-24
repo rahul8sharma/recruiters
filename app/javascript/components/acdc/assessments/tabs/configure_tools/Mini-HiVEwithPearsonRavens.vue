@@ -5,6 +5,9 @@
     </div>
 
     <div class="p-15">
+      <div class="large-12 pt-12">
+        <em class="fs-12 black-6">(Cognitive Assessments assess Analytical Skills and Logical reasoning, Strategic Thinking, Decision Making, Problem Solving and Overall Learning Agility.)</em>
+      </div>
       <div class="divider-1"></div>
       <div class="form-group large-15">
         <input v-model="configureToolData.url" type="text" placeholder="Enter Redirection URL">

@@ -4,7 +4,11 @@
       {{index}}. Mini-HiVE with Jombay Critical Thinking
     </div>
 
-    <div class="p-15">      
+    <div class="p-15">
+      <div class="large-12 pt-12">
+        <em class="fs-12 black-6">(Critical Thinking measures a combination of critical thinking attitudes, knowledge, and skills.)</em>
+      </div>
+      <div class="divider-1"></div>
       <div class="select-box large-15">
         <div class="form-group">
           <model-select :options="options"

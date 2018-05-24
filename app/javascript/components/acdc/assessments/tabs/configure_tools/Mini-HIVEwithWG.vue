@@ -5,6 +5,9 @@
     </div>
 
     <div class="p-15">
+      <div class="large-12 pt-12">
+        <em class="fs-12 black-6">(The Watson-Glaser™ Critical Thinking Appraisal is the leader in assessing critical thinking ability and predicting performance in fast-paced positions requiring high-level thinking and analysis. It measures a combination of critical thinking attitudes, knowledge, and skills.)</em>
+      </div>
       <div class="divider-1"></div>
       <div class="form-group large-15">
         <input v-model="configureToolData.url" type="text" placeholder="Enter Redirection URL">

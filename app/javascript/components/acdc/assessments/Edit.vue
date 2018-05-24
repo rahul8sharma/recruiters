@@ -9,7 +9,7 @@
             ({{splitToolsName($store.state.AcdcStore.assessmentRawData.tools)}})
           </span>
         </div>
-        <em class="fs-14 black-7">ID: {{this.$store.state.AcdcStore.assessmentId}}, Status: In {{this.$store.state.AcdcStore.assessmentStatus}}</em>
+        <em class="fs-14 black-7">ID: {{this.$store.state.AcdcStore.assessmentId}}, Status: {{isSendForReview ? 'Approval Pending' : 'In ' + this.$store.state.AcdcStore.assessmentStatus}}</em>
       </div>
       <div class="spacer"></div>
       <div v-if="!isSendForReview">
@@ -27,8 +27,33 @@
         </button>
       </div>
       <div v-else="isSendForReview">
-        <button class="btn-link uppercase black-6 fs-14">DISAPPROVE</button>
-        <button class="btn-warning inverse uppercase fs-14">APPROVE</button>
+        <div v-if="$store.state.AcdcStore.canApprove">
+          <button 
+            class="btn-link uppercase black-6 fs-14"
+            @click="setDisapproveModalState"
+          >
+            DISAPPROVE
+          </button>
+          <DisapproveModal
+            v-bind:isDisapproveModalOpen="disapproveModal.isOpen"
+            :set-disapprove-modal-state="setDisapproveModalState"
+          >
+          </DisapproveModal>
+          <button 
+            class="btn-warning inverse uppercase fs-14"
+            @click="setApproveModalState"
+          >
+            APPROVE
+          </button>
+          <ApproveModal
+            v-bind:isApproveModalOpen="approveModal.isOpen"
+            :set-approve-modal-state="setApproveModalState"
+          >
+          </ApproveModal>
+        </div>
+        <div v-else="!$store.state.AcdcStore.canApprove">
+          <em class="fs-14 black-7">You can’t take any action until this Assessment is not Approved.</em>
+        </div>
       </div>
     </div>
 
@@ -82,13 +107,15 @@
   import ToolsJson from 'config/tools.json'
   import assessmentHelper from 'helpers/assessment.js'
   import validationHelper from 'helpers/validation.js'
+  import ApproveModal from 'components/acdc/assessments/popup/Approve.vue';
+  import DisapproveModal from 'components/acdc/assessments/popup/Disapprove.vue';
 
   export default {
     components: { Description, ConfigureTools,
                   CreateCustomForms, AddBehavioursCompetenciesTraits, 
                   SelectSubjectiveObjectiveQuestions, SelectTemplate,
                   ReportConfiguration, Review,
-                  Loader },
+                  Loader, ApproveModal, DisapproveModal },
     data () {
       return {
         currentTab: 'Description',
@@ -132,7 +159,13 @@
             url: 'review',
             tabData: { raw_data: {} }
           }
-        ]
+        ],
+        approveModal: {
+          isOpen: false
+        },
+        disapproveModal: {
+          isOpen: false
+        }
       }
     },
     computed: {
@@ -185,6 +218,12 @@
         } else {
           return false
         }
+      },
+      setApproveModalState () {
+        this.approveModal.isOpen = !this.approveModal.isOpen
+      },
+      setDisapproveModalState () {
+        this.disapproveModal.isOpen = !this.disapproveModal.isOpen
       }
     },
     created: function () {
