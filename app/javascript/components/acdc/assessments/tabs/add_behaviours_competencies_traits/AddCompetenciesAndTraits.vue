@@ -33,7 +33,7 @@
               <label>Range from</label>
             </div>
             <em class="fs-14 black-6" v-if="items[competencyIndex].disableds[traitIndex]" >
-                Already selected in Competency
+                Already selected in another Competency
             </em>
           </div>
           <div class="select-box large-7 columns pr-20">
@@ -46,7 +46,7 @@
               <label>Range to</label>
             </div>
              <em class="fs-14 black-6" v-if="items[competencyIndex].disableds[traitIndex]" >
-                Already selected in Competency
+                Already selected in another Competency
             </em>
           </div>
           

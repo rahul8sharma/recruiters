@@ -135,20 +135,17 @@ class Acdc::AssessmentsController < ApplicationController
   def get_templates_by_ids
     template_data = {invitation_templates: {}, reminder_templates: {}, completion_notification_templates: {}}
 
-    template_data[:invitation_templates] = get_invitation_templates[0].attributes if params[:invitation_template_id].present?
-    template_data[:reminder_templates] = get_reminder_templates[0].attributes if params[:reminder_template_id].present?
-    template_data[:completion_notification_templates] = get_completion_notification_templates[0].attributes if params[:completion_notification_template_id].present?
+    template_data[:invitation_templates] = template_preview(Vger::Resources::Template.find(params[:invitation_template_id])) if params[:invitation_template_id].present?
+    template_data[:reminder_templates] = template_preview(Vger::Resources::Template.find(params[:reminder_template_id])) if params[:reminder_template_id].present?
+    template_data[:completion_notification_templates] = template_preview(Vger::Resources::Template.find(params[:completion_notification_template_id])) if params[:completion_notification_template_id].present?
 
     render json: template_data, status: :ok
   end
-
 
   def get_completion_notification_templates
     query_options = {
       "template_categories.name" => Vger::Resources::Template::TemplateCategory::SEND_ASSESSMENT_COMPLETION_NOTIFICATION_TO_CANDIDATE
     }
-
-    query_options.merge!({"id" => params[:completion_notification_template_id]}) if !params[:completion_notification_template_id].blank?
 
     @completion_notification_templates = get_templates_for_company_specific(query_options, @company.id)
   end
@@ -163,8 +160,6 @@ class Acdc::AssessmentsController < ApplicationController
    ]
     query_options["template_categories.name"] = category
 
-    query_options.merge!({"id" => params[:invitation_template_id]}) if !params[:invitation_template_id].blank?
-
     @invitation_templates = get_templates_for_company_specific(query_options, @company.id)
   end
   
@@ -177,8 +172,6 @@ class Acdc::AssessmentsController < ApplicationController
       Vger::Resources::Template::TemplateCategory::SEND_TEST_REMINDER_TO_EMPLOYEE
     ]
     query_options["template_categories.name"] = category
-
-    query_options.merge!({"id" => params[:reminder_template_id]}) if !params[:reminder_template_id].blank?
 
     @reminder_templates = get_templates_for_company_specific(query_options, @company.id)
   end
