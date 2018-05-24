@@ -120,7 +120,6 @@
           companyId: this.$store.state.AcdcStore.companyId,
           acdc_assessment: {status: 'review'}
         }).then(() => {
-          alert("Assessment Send For Approval")
           location.reload();
         })
       }

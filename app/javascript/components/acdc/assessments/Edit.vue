@@ -22,6 +22,7 @@
         <!-- Popup for delete assessment. -->
         <Modal
           v-bind:isModalOpen="modal.isDeleteAssessmentModalOpen"
+          v-bind:isButtonDisable="false"
           headerText="Delete Assessment"
           cancelText="CANCEL"
           confirmText="DELETE"
@@ -56,11 +57,18 @@
           >
             APPROVE
           </button>
-          <ApproveModal
-            v-bind:isApproveModalOpen="modal.isApproveModalOpen"
-            :set-approve-modal-state="setApproveModalState"
+          <!-- Popup for approve assessment. -->
+          <Modal
+            v-bind:isModalOpen="modal.isApproveModalOpen"
+            v-bind:isButtonDisable="false"
+            headerText="Approve this Assessment"
+            cancelText="CANCEL"
+            confirmText="APPROVE"
+            :confirm-method="approve"
+            :set-modal-state="setApproveModalState"
           >
-          </ApproveModal>
+            <ApproveAssessment></ApproveAssessment>
+          </Modal>
         </div>
         <div v-else="!$store.state.AcdcStore.canApprove">
           <em class="fs-14 black-7">You can’t take any action until this Assessment is not Approved.</em>
@@ -118,17 +126,18 @@
   import ToolsJson from 'config/tools.json'
   import assessmentHelper from 'helpers/assessment.js'
   import validationHelper from 'helpers/validation.js'
-  import ApproveModal from 'components/acdc/assessments/popup/Approve.vue';
-  import DisapproveModal from 'components/acdc/assessments/popup/Disapprove.vue';
   import Modal from 'components/shared/modal.vue';
   import DeleteAssessment from 'components/acdc/assessments/tabs/actions/Delete.vue';
+  import ApproveAssessment from 'components/acdc/assessments/tabs/actions/Approve.vue';
+  import DisapproveModal from 'components/acdc/assessments/tabs/actions/Disapprove.vue';
+  import assessmentUrlHelper from 'helpers/assessmentUrl.js'
 
   export default {
-    components: { Description, ConfigureTools,
-                  CreateCustomForms, AddBehavioursCompetenciesTraits, 
-                  SelectSubjectiveObjectiveQuestions, SelectTemplate,
-                  ReportConfiguration, Review,
-                  Loader, ApproveModal, DisapproveModal, Modal, DeleteAssessment },
+    components: { 
+      Description, ConfigureTools, CreateCustomForms, AddBehavioursCompetenciesTraits,
+      SelectSubjectiveObjectiveQuestions, SelectTemplate, ReportConfiguration, Review,
+      Loader, DisapproveModal, Modal, DeleteAssessment, ApproveAssessment 
+    },
     data () {
       return {
         currentTab: 'Description',
@@ -233,6 +242,18 @@
       },
       setDeleteModalState () {
         this.modal.isDeleteAssessmentModalOpen = !this.modal.isDeleteAssessmentModalOpen
+      },
+      approve:function(){
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {
+            reviewer_id: this.$store.state.AcdcStore.userId,
+            status: 'approve'
+          }
+        }).then(() => {
+          window.location = assessmentUrlHelper.getAssessmentUrl(this.$store.state.AcdcStore.companyId)
+        })
       }
     },
     created: function () {

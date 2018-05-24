@@ -12,7 +12,7 @@
       <div class="actions">
         <div class="spacer"></div>
         <button @click="setModalState" class="button btn-link uppercase fs-14 black-7">{{cancelText}}</button>
-        <button @click="confirmMethod" class="button btn-warning uppercase fs-14">{{confirmText}}</button>
+        <button :disabled="isButtonDisable" @click="confirmMethod" class="button btn-warning uppercase fs-14">{{confirmText}}</button>
       </div>
     </div>
   </div>
@@ -28,7 +28,8 @@
       'headerText',
       'cancelText',
       'confirmText',
-      'confirmMethod'
+      'confirmMethod',
+      'isButtonDisable'
     ]
   }
 </script>
