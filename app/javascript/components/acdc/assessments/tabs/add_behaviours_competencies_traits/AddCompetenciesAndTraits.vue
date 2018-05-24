@@ -24,22 +24,30 @@
             
           </div>
           <div class="select-box large-7 columns pr-20">
-            <div class="form-group">
+            <div v-if="!items[competencyIndex].disableds[traitIndex]" class="form-group">
               <model-select :options="options"
                 v-model="trait.from_norm_bucket"
-                placeholder="Range from">
+                placeholder="Range from"
+                >
               </model-select>
               <label>Range from</label>
             </div>
+            <em class="fs-14 black-6" v-if="items[competencyIndex].disableds[traitIndex]" >
+                Already selected in Competency
+            </em>
           </div>
           <div class="select-box large-7 columns pr-20">
-            <div class="form-group">
+            <div v-if="!items[competencyIndex].disableds[traitIndex]" class="form-group">
               <model-select :options="options"
               v-model="trait.to_norm_bucket"
-              placeholder="Range from">
+              placeholder="Range from"
+              >
               </model-select>
               <label>Range to</label>
             </div>
+             <em class="fs-14 black-6" v-if="items[competencyIndex].disableds[traitIndex]" >
+                Already selected in Competency
+            </em>
           </div>
           
           <div class="form-group large-3 columns pr-20">
@@ -93,7 +101,8 @@
       return {
         items: [{
           competencySuggestion: [],
-          factorNames: []
+          factorNames: [],
+          disableds: []
         }],
         options: [
           {value: 1, text: 'Low'},
@@ -125,6 +134,7 @@
           weight: 1.0
         })
        this.items[index].competencySuggestion.push("Select Trait")
+       this.items[index].disableds.push(false)
        
        if(this.factorNames.indexOf('Select Trait') > -1) {
        this.items[index].factorNames[this.tabData.competencies[index].selectedFactors.length - 1] = this.factorNames.slice()
@@ -152,9 +162,22 @@
         this.tabData.competencies[competencyIndex].selectedFactors.splice(traitIndex, 1)
         this.tabData.competencies[competencyIndex].factor_ids.splice(traitIndex, 1)
         this.items[competencyIndex].competencySuggestion.splice(traitIndex, 1)
+        this.items[competencyIndex].disableds.splice(traitIndex, 1)
         this.items[competencyIndex].factorNames.splice(traitIndex, 1)
         this.isremoveTraitEvent = competencyIndex
-      }
+
+        for(var completeCompetencyIndex = 0; completeCompetencyIndex< this.tabData.competencies.length; completeCompetencyIndex++) {
+          let flag = false
+          for(var completeTraitIndex = 0; completeTraitIndex < this.tabData.competencies[completeCompetencyIndex].selectedFactors.length; completeTraitIndex++) {
+            if(this.removeTraitValue == this.tabData.competencies[completeCompetencyIndex].selectedFactors[completeTraitIndex].name) {
+              this.items[completeCompetencyIndex].disableds[completeTraitIndex] = false
+              flag = true
+              break;
+            }
+          }
+          if(flag) { break; }
+        }
+      },
     },
     updated: function() {
       if(this.isremoveTraitEvent != -1) {
@@ -196,7 +219,7 @@
         this.factorNames = data.factor_names
         for(var competencyIndex = 0; competencyIndex < this.tabData.competencies.length; competencyIndex ++) {
           if (competencyIndex != 0) {
-            this.items.push({competencySuggestion: [], factorNames: []})
+            this.items.push({competencySuggestion: [], factorNames: [], disableds: []})
           }
           for(var factor in this.tabData.competencies[competencyIndex].selectedFactors) {
             if(this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name != ""){
@@ -206,6 +229,7 @@
               this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name = 'Select Trait'
               this.factorNames.unshift("Select Trait")
             }
+            this.items[competencyIndex].disableds.push(false)
             this.initializeData = true
             this.items[competencyIndex].factorNames[parseInt(factor)] = this.factorNames.slice()
           }
@@ -217,6 +241,24 @@
             });
             if (traitName != 'Select Trait') {
               this.items[competencyIndex].factorNames[parseInt(factor)].push(traitName)
+            }
+          }
+        }
+
+        for(var competencyIndex = 0; competencyIndex < this.tabData.competencies.length; competencyIndex ++) {
+            let hashCount = {}
+          for(var factor in this.tabData.competencies[competencyIndex].selectedFactors) {
+            let factorName = this.tabData.competencies[competencyIndex].selectedFactors[parseInt(factor)].name
+            for(var completeCompetencyIndex = 0; completeCompetencyIndex< this.tabData.competencies.length; completeCompetencyIndex++) {
+              for(var completeTraitIndex = 0; completeTraitIndex < this.tabData.competencies[completeCompetencyIndex].selectedFactors.length; completeTraitIndex++) {
+                if(factorName == this.tabData.competencies[completeCompetencyIndex].selectedFactors[completeTraitIndex].name) {
+
+                  hashCount[factorName] == undefined ? hashCount[factorName] = 0 : hashCount[factorName] = hashCount[factorName] + 1
+                  if(hashCount[factorName] > 0) {
+                    let disabled = this.items[completeCompetencyIndex].disableds[completeTraitIndex] = true
+                  }
+                }
+              }
             }
           }
         }

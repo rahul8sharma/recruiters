@@ -76,6 +76,7 @@
 <script>
   import trumbowyg from 'vue-trumbowyg';
   import 'trumbowyg/dist/ui/trumbowyg.css';
+  import assessmentHelper from 'helpers/assessment.js'
 
   export default {
     props: ['currentTemplates', "tabData", "templateName", 'model', 'createTemplateName', 'templateVariables'],
@@ -111,6 +112,12 @@
         this.tabData[this.createTemplateName] = this.model.create_template
         this.model.showModel = false
         this.model.selectTemplated = this.model.create_template
+
+        for(var templateVariableIndex=0; templateVariableIndex < this.templateVariables.length; templateVariableIndex++) {
+          this.model.selectTemplated.from = this.model.create_template.from.replace("<$" + this.templateVariables[templateVariableIndex].id + "$>", "&lt;" + this.templateVariables[templateVariableIndex].name + "&gt;");
+          this.model.selectTemplated.subject = this.model.create_template.subject.replace("<$" + this.templateVariables[templateVariableIndex].id + "$>", "&lt;" + this.templateVariables[templateVariableIndex].name + "&gt;");
+          this.model.selectTemplated.body = this.model.create_template.body.replace("&lt;$" + this.templateVariables[templateVariableIndex].id + "$&gt;", "&lt;" + this.templateVariables[templateVariableIndex].name + "&gt;");
+        }
         this.tabData[this.templateName] = ''
         this.model.item = { value: '', text: ''}
       }
@@ -142,14 +149,19 @@
         var currentElement = null;
         var editor = $('#template_html_editor');
 
+
         getTemplateBodyValue($('input[name="template[body]"').val(), editor);
 
-        $("#template_subject, #template_from").click(function(){
+        $(document).on("click","#template_subject, #template_from",function() {
           currentElement = $(this);
         });
 
-        $("#template_html_editor").on('tbwfocus', function(){ currentElement = $(this); });
-        $("#template_html_editor").on('tbwinit', function(){ currentElement = $(this); });
+        $(document).on("tbwfocus","#template_html_editor",function() {
+          currentElement = $(this);
+        });
+        $(document).on("tbwinit","#template_html_editor",function() {
+          currentElement = $(this);
+        });
 
         $(document).on("click",".template_variable_link",function(){
           if(currentElement != null) {
@@ -163,32 +175,10 @@
                 editor.trumbowyg('saveRange');
                 setTemplateBodyValue($('#template_html_editor').html());
             }else{
-              currentElement.insertAtCaret(template_variable);
+              assessmentHelper.insertAtCursor(document.getElementById(currentElement.attr('id')), template_variable);
             }
           }
         });
-        $.fn.insertAtCaret = function(myValue) {
-          return this.each(function() {
-            var me = this;
-            if (document.selection) { // IE
-              me.focus();
-              sel = document.selection.createRange();
-              sel.text = myValue;
-              me.focus();
-            } else if (me.selectionStart || me.selectionStart == '0') { // Real browsers
-              var startPos = me.selectionStart, endPos = me.selectionEnd, scrollTop = me.scrollTop;
-              me.value = me.value.substring(0, startPos) + myValue + me.value.substring(endPos, me.value.length);
-              me.focus();
-              me.selectionStart = startPos + myValue.length;
-              me.selectionEnd = startPos + myValue.length;
-              me.scrollTop = scrollTop;
-            } else {
-              me.value += myValue;
-              me.focus();
-            }
-          });
-        };
-
       });
 
       function setTemplateBodyValue(value){

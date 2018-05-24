@@ -54,11 +54,31 @@
               currentTraitSelect.remove(0)
             }
 
-            competency.selectedFactors[currentTraitIndex].factor_id = factor.id
-            competency.selectedFactors[currentTraitIndex].name = factor.name
-            competency.selectedFactors[currentTraitIndex].to_norm_bucket = vm.competencyData.options[(factor.to_norm_bucket_id - 1)]
-            competency.selectedFactors[currentTraitIndex].from_norm_bucket = vm.competencyData.options[(factor.from_norm_bucket_id - 1)]
-            competency.factor_ids[currentTraitIndex] = factor.id  
+            let previousSelected = false
+            for(var competencyIndex = 0; competencyIndex< vm.competencyData.tabData.competencies.length; competencyIndex++) {
+              for(var traitIndex = 0; traitIndex < vm.competencyData.tabData.competencies[competencyIndex].selectedFactors.length; traitIndex++) {
+                if(factor.name == vm.competencyData.tabData.competencies[competencyIndex].selectedFactors[traitIndex].name && vm.competencyData.tabData.competencies[competencyIndex].selectedFactors[traitIndex].factor_id != '') {
+                  competency.selectedFactors[currentTraitIndex].factor_id = factor.id
+                  competency.selectedFactors[currentTraitIndex].name = factor.name
+
+                  competency.selectedFactors[currentTraitIndex].to_norm_bucket = vm.competencyData.tabData.competencies[competencyIndex].selectedFactors[traitIndex].to_norm_bucket
+                  competency.selectedFactors[currentTraitIndex].from_norm_bucket = vm.competencyData.tabData.competencies[competencyIndex].selectedFactors[traitIndex].from_norm_bucket
+
+                  competency.factor_ids[currentTraitIndex] = factor.id
+                  previousSelected = true
+                  vm.competencyData.items[currentCompetencyIndex].disableds[currentTraitIndex] = true
+                  break;
+                }
+              }
+            }
+
+            if(!previousSelected) {
+              competency.selectedFactors[currentTraitIndex].factor_id = factor.id
+              competency.selectedFactors[currentTraitIndex].name = factor.name
+              competency.selectedFactors[currentTraitIndex].to_norm_bucket = vm.competencyData.options[(factor.to_norm_bucket_id - 1)]
+              competency.selectedFactors[currentTraitIndex].from_norm_bucket = vm.competencyData.options[(factor.from_norm_bucket_id - 1)]
+              competency.factor_ids[currentTraitIndex] = factor.id
+            }
           }
           for (var i = 0; i < taritLength; i++) {
             if(i != currentTraitIndex && currentTraitValue != 'Select Trait') {
@@ -85,6 +105,7 @@
               }
             }
           }
+
           vm.$emit('options', this.options)
           vm.$emit('input', this.value)
         })
