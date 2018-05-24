@@ -16,25 +16,25 @@
             <a class="setting" href="#" title="Account"></a>
             <ul class="fs-14">
               <li>
-                <a href="/companies/3399/statistics/">Usage</a>
+                <a :href="getCompanyUsageUrl">Usage</a>
               </li>
               <li>
-                <a href="/companies/3399/statistics_360/">360 Usage</a>
+                <a :href="getCompany360UsageUrl">360 Usage</a>
               </li>
               <li>
-                <a href="/companies/3399/statistics_vac/">VAC Usage</a>
+                <a :href="getCompanyVacUsageUrl">VAC Usage</a>
               </li>
               <li>
-                <a href="/companies/3399/">Settings</a>
+                <a :href="getCompanySettingUrl">Settings</a>
               </li>
               <li>
-                <a href="/companies/3399/training-requirements/">Group TRR</a>
+                <a :href="getCompanyTrainingRequirementsUrl">Group TRR</a>
               </li>
               <li>
-                <a href="/companies/3399/walk-ins/">Walk-Ins</a>
+                <a :href="getCompanyWalkInsUrl">Walk-Ins</a>
               </li>
               <li>
-                <a href="/logout">Logout</a>
+                <a :href="getLogoutUrl">Logout</a>
               </li>
             </ul>
           </li>
@@ -46,12 +46,12 @@
             </a>
             <ul class="fs-14">
               <li>
-                <a class="mrf" href="/companies/3399/360/home/" title="360 Degree">
+                <a class="mrf" :href="getCompany360HomeUrl" title="360 Degree">
                   360 DEGREE
                 </a>
               </li>
               <li>
-                <a class="mrf" href="/companies/3399/oac/home/" title="Online Assessment Center">
+                <a class="mrf" :href="getCompanyOacHomeUrl" title="Online Assessment Center">
                   VAC
                 </a>
               </li>
@@ -60,22 +60,27 @@
         </ul>
         <ul class="navbar right clearfix">
           <li>
-            <a href="/companies/" title="COMPANIES">
+            <a :href="getCompanyUrl" title="COMPANIES">
               COMPANIES
             </a>
           </li>
           <li>
-            <a class="active" href="/companies/3399/tests/" title="ASSESSMENTS">
+            <a class="active" :href="getCompanyAcdcUrl" title="ACDC">
+              ACDC
+            </a>
+          </li>
+          <li>
+            <a :href="getCompanyAssessmentUrl" title="ASSESSMENTS">
               ASSESSMENTS
             </a>
           </li>
           <li>
-            <a class="" href="/companies/3399/reports/" title="REPORTS">
+            <a class="" :href="getCompanyReportUrl" title="REPORTS">
               REPORTS
             </a>
           </li>
           <li>
-            <a class="search-menu" href="/companies/3399/users_search/" title="Search"></a>
+            <a class="search-menu" :href="getUsersSearchUrl" title="Search"></a>
           </li>
         </ul>
         <div class="clr"></div>
@@ -85,3 +90,54 @@
     </div>
   </div>
 </template>
+
+<script>
+  import assessmentUrlHelper from 'helpers/assessmentUrl.js'
+
+  export default {
+    computed: {
+      getCompanyUsageUrl: function () {
+        return assessmentUrlHelper.getCompanyUsageUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompany360UsageUrl: function () {
+        return assessmentUrlHelper.getCompany360UsageUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyVacUsageUrl: function () {
+        return assessmentUrlHelper.getCompanyVacUsageUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanySettingUrl: function () {
+        return assessmentUrlHelper.getCompanySettingUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyTrainingRequirementsUrl: function () {
+        return assessmentUrlHelper.getCompanyTrainingRequirementsUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyWalkInsUrl: function () {
+        return assessmentUrlHelper.getCompanyWalkInsUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompany360HomeUrl: function () {
+        return assessmentUrlHelper.getCompany360HomeUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyOacHomeUrl: function () {
+        return assessmentUrlHelper.getCompanyOacHomeUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyAcdcUrl: function () {
+        return assessmentUrlHelper.getCompanyAcdcUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyAssessmentUrl: function () {
+        return assessmentUrlHelper.getCompanyAssessmentUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyReportUrl: function () {
+        return assessmentUrlHelper.getCompanyReportUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getUsersSearchUrl: function () {
+        return assessmentUrlHelper.getUsersSearchUrl(this.$store.state.AcdcStore.companyId)
+      },
+      getCompanyUrl: function () {
+        return assessmentUrlHelper.getCompanyUrl()
+      },
+      getLogoutUrl: function () {
+        return assessmentUrlHelper.getLogoutUrl()
+      }
+    }
+  }
+</script>

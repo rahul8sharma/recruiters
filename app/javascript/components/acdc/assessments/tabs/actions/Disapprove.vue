@@ -45,7 +45,7 @@
             comments: this.comments,
           }
         }).then(() => {
-          window.location = assessmentUrlHelper.getAssessmentUrl(this.$store.state.AcdcStore.companyId)
+          window.location = assessmentUrlHelper.getCompanyAcdcUrl(this.$store.state.AcdcStore.companyId)
         })
       }
     }
