@@ -39,10 +39,10 @@
         this.$store.dispatch('updateAcdcAssessment', {
           assessmentId: this.$store.state.AcdcStore.assessmentId,
           companyId: this.$store.state.AcdcStore.companyId,
-          comments: this.comments,
           acdc_assessment: {
             reviewer_id: this.$store.state.AcdcStore.userId,
-            status: 'rejected'
+            status: 'rejected',
+            comments: this.comments,
           }
         }).then(() => {
           window.location = assessmentUrlHelper.getAssessmentUrl(this.$store.state.AcdcStore.companyId)

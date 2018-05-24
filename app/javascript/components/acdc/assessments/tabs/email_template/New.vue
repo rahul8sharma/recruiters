@@ -43,7 +43,8 @@
                 id="template_html_editor"
                 :config="configs"
                 class="form-control"
-                name="content">
+                name="content"
+                data-gramm_editor="false">
               </trumbowyg>
             </div>
 
