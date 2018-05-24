@@ -1,27 +1,18 @@
 <template>
-  <div class="modal scrollable" v-bind:class="[isApproveModalOpen ? 'modalOpen' : 'hide']">
+  <div class="modal scrollable" v-bind:class="[isModalOpen ? 'modalOpen' : 'hide']">
     <div class="modal-container large-20 p-0">
       <div class="heading fs-14 uppercase">
-        <span class="bold">Approve this Assessment</span>
+        <span class="bold">{{headerText}}</span>
         <div class="spacer"></div>
-        <div @click="setApproveModalState" class="close">&times;</div>
+        <div @click="setModalState" class="close">&times;</div>
       </div>
       <div class="modal-body">
-        <p>Clicking on <span class="bold">‘Approve’</span> will enable the sending of the assessment.</p>
-        <p>Once the assessment is approved only following parts of the assessment can be changed</p>
-        <ol>
-        <li>Name</li>
-        <li>Competency and trait ranges</li>
-        <li>Competency and trait weightages</li>
-        <li>Email Templates</li>
-        <li>Report configurations</li>
-      </ol>
-        <p>Please make sure all the other parts correct.</p>
+        <slot></slot>
       </div>
       <div class="actions">
         <div class="spacer"></div>
-        <button @click="setApproveModalState" class="button btn-link uppercase fs-14 black-7">CANCEL</button>
-        <button @click="approve" class="button btn-warning uppercase fs-14">APPROVE</button>
+        <button @click="setModalState" class="button btn-link uppercase fs-14 black-7">{{cancelText}}</button>
+        <button :disabled="isButtonDisable" @click="confirmMethod" class="button btn-warning uppercase fs-14">{{confirmText}}</button>
       </div>
     </div>
   </div>
@@ -31,21 +22,15 @@
   import assessmentUrlHelper from 'helpers/assessmentUrl.js'
 
   export default {
-    props: [ 'isApproveModalOpen', 'setApproveModalState' ],
-    methods: {
-      approve:function(){
-        this.$store.dispatch('updateAcdcAssessment', {
-          assessmentId: this.$store.state.AcdcStore.assessmentId,
-          companyId: this.$store.state.AcdcStore.companyId,
-          acdc_assessment: {
-            reviewer_id: this.$store.state.AcdcStore.userId,
-            status: 'approve'
-          }
-        }).then(() => {
-          window.location = assessmentUrlHelper.getAssessmentUrl(this.$store.state.AcdcStore.companyId)
-        })
-      }
-    }
+    props: [ 
+      'isModalOpen',
+      'setModalState',
+      'headerText',
+      'cancelText',
+      'confirmText',
+      'confirmMethod',
+      'isButtonDisable'
+    ]
   }
 </script>
 

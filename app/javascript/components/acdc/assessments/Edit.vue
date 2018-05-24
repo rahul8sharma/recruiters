@@ -15,10 +15,22 @@
       <div v-if="!isSendForReview">
         <button
           class="btn-link uppercase black-6 fs-14"
-          @click="deleteAssessment"
+          @click="setDeleteModalState"
         >
           Delete this Assessment
         </button>
+        <!-- Popup for delete assessment. -->
+        <Modal
+          v-bind:isModalOpen="modal.isDeleteAssessmentModalOpen"
+          v-bind:isButtonDisable="false"
+          headerText="Delete Assessment"
+          cancelText="CANCEL"
+          confirmText="DELETE"
+          :confirm-method="deleteAssessment"
+          :set-modal-state="setDeleteModalState"
+        >
+          <DeleteAssessment></DeleteAssessment>
+        </Modal>
         <button
           class="btn-warning inverse uppercase fs-14"
           @click="saveAndExit"
@@ -35,7 +47,7 @@
             DISAPPROVE
           </button>
           <DisapproveModal
-            v-bind:isDisapproveModalOpen="disapproveModal.isOpen"
+            v-bind:isDisapproveModalOpen="modal.isDisapproveModalOpen"
             :set-disapprove-modal-state="setDisapproveModalState"
           >
           </DisapproveModal>
@@ -45,11 +57,18 @@
           >
             APPROVE
           </button>
-          <ApproveModal
-            v-bind:isApproveModalOpen="approveModal.isOpen"
-            :set-approve-modal-state="setApproveModalState"
+          <!-- Popup for approve assessment. -->
+          <Modal
+            v-bind:isModalOpen="modal.isApproveModalOpen"
+            v-bind:isButtonDisable="false"
+            headerText="Approve this Assessment"
+            cancelText="CANCEL"
+            confirmText="APPROVE"
+            :confirm-method="approve"
+            :set-modal-state="setApproveModalState"
           >
-          </ApproveModal>
+            <ApproveAssessment></ApproveAssessment>
+          </Modal>
         </div>
         <div v-else="!$store.state.AcdcStore.canApprove">
           <em class="fs-14 black-7">You can’t take any action until this Assessment is not Approved.</em>
@@ -107,15 +126,18 @@
   import ToolsJson from 'config/tools.json'
   import assessmentHelper from 'helpers/assessment.js'
   import validationHelper from 'helpers/validation.js'
-  import ApproveModal from 'components/acdc/assessments/popup/Approve.vue';
-  import DisapproveModal from 'components/acdc/assessments/popup/Disapprove.vue';
+  import Modal from 'components/shared/modal.vue';
+  import DeleteAssessment from 'components/acdc/assessments/tabs/actions/Delete.vue';
+  import ApproveAssessment from 'components/acdc/assessments/tabs/actions/Approve.vue';
+  import DisapproveModal from 'components/acdc/assessments/tabs/actions/Disapprove.vue';
+  import assessmentUrlHelper from 'helpers/assessmentUrl.js'
 
   export default {
-    components: { Description, ConfigureTools,
-                  CreateCustomForms, AddBehavioursCompetenciesTraits, 
-                  SelectSubjectiveObjectiveQuestions, SelectTemplate,
-                  ReportConfiguration, Review,
-                  Loader, ApproveModal, DisapproveModal },
+    components: { 
+      Description, ConfigureTools, CreateCustomForms, AddBehavioursCompetenciesTraits,
+      SelectSubjectiveObjectiveQuestions, SelectTemplate, ReportConfiguration, Review,
+      Loader, DisapproveModal, Modal, DeleteAssessment, ApproveAssessment 
+    },
     data () {
       return {
         currentTab: 'Description',
@@ -160,11 +182,10 @@
             tabData: { raw_data: {} }
           }
         ],
-        approveModal: {
-          isOpen: false
-        },
-        disapproveModal: {
-          isOpen: false
+        modal: {
+          isDeleteAssessmentModalOpen: false,
+          isApproveModalOpen: false,
+          isDisapproveModalOpen: false
         }
       }
     },
@@ -198,16 +219,10 @@
         window.location = "/companies/" + this.$store.state.AcdcStore.companyId + "/acdc"
       },
       deleteAssessment:function(){
-        this.$dialog.confirm("If you delete this assessment, It'll be gone forever.")
-          .then((dialog) => {
-            this.$store.dispatch('deleteAcdcAssessment', {
-              assessmentId: this.$store.state.AcdcStore.assessmentId,
-              companyId: this.$store.state.AcdcStore.companyId
-            });
-          })
-          .catch(() => {
-              console.log('Delete aborted');
-          });
+        this.$store.dispatch('deleteAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId
+        });
       },
       splitToolsName(tools) {
         return assessmentHelper.splitToolsName(tools)
@@ -220,10 +235,25 @@
         }
       },
       setApproveModalState () {
-        this.approveModal.isOpen = !this.approveModal.isOpen
+        this.modal.isApproveModalOpen = !this.modal.isApproveModalOpen
       },
       setDisapproveModalState () {
-        this.disapproveModal.isOpen = !this.disapproveModal.isOpen
+        this.modal.isDisapproveModalOpen = !this.modal.isDisapproveModalOpen
+      },
+      setDeleteModalState () {
+        this.modal.isDeleteAssessmentModalOpen = !this.modal.isDeleteAssessmentModalOpen
+      },
+      approve:function(){
+        this.$store.dispatch('updateAcdcAssessment', {
+          assessmentId: this.$store.state.AcdcStore.assessmentId,
+          companyId: this.$store.state.AcdcStore.companyId,
+          acdc_assessment: {
+            reviewer_id: this.$store.state.AcdcStore.userId,
+            status: 'approve'
+          }
+        }).then(() => {
+          window.location = assessmentUrlHelper.getAssessmentUrl(this.$store.state.AcdcStore.companyId)
+        })
       }
     },
     created: function () {

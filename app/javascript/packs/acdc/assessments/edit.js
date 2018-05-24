@@ -2,13 +2,11 @@ import Vue from 'vue/dist/vue.esm';
 import VueResource from 'vue-resource';
 import { store } from 'store'
 import VueMixin from 'config/VueConfig.js'
-import VuejsDialog from "vuejs-dialog"
 
 // This the .vue file that we will create next
 import AcdcAssessmentsEditComponent from 'components/acdc/assessments/Edit.vue';
 
 Vue.use(VueResource);
-Vue.use(VuejsDialog)
 
 const edit = new Vue({
   el: '#acdc-assessments-edit-component',
