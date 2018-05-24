@@ -101,14 +101,17 @@
       uploadAccountQuestion() {
         this.objectiveQuestion.sections = []
         if (!this.objectiveQuestion.is_question_uploaded) {
-          this.get.get_section_with_objective({
-            company_id: this.$store.state.AcdcStore.companyId
-          }).then(response => {
-            return response.json()
-          }).then(data => {
-            this.objectiveQuestion.sections = extractObjectiveQuestions(data.section_with_objectives)
-          })
+          this.getQuestions()
         }
+      },
+      getQuestions() {
+        this.get.get_section_with_objective({
+          company_id: this.$store.state.AcdcStore.companyId
+        }).then(response => {
+          return response.json()
+        }).then(data => {
+          this.objectiveQuestion.sections = extractObjectiveQuestions(data.section_with_objectives)
+        })
       }
     },
     watch: {
@@ -119,6 +122,12 @@
     computed: {
       isSaveUploadButton: function () {
         return isGoogleDriveUrlValid(this.drive_url)
+      }
+    },
+    created: function() {
+      if(this.objectiveQuestion.is_question_uploaded) {
+        this.objectiveQuestion.sections = []
+        this.getQuestions()
       }
     }
   }
